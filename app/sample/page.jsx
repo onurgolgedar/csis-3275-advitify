@@ -4,7 +4,7 @@ import styles from "./sample.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import SampleComponent from "./sampleComponent/page";
+import SampleComponent from "./sampleComponent/sampleComponent";
 
 export default function Sample() {
   const [counter, setCounter] = useState(0);

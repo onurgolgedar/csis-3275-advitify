@@ -1,0 +1,14 @@
+.wrapper {
+  min-height: 80px;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  border: solid #000000 1px;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+  max-width: 1200px;
+  padding: 24px 48px;
+}
