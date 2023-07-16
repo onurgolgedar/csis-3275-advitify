@@ -1,0 +1,49 @@
+:root {
+}
+
+/* ----- Reset ----- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body,
+ul,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
+    padding: 0;
+}
+
+img,
+picture {
+    max-width: 100%;
+}
+
+input,
+textarea,
+button,
+select {
+    font: inherit;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+@media screen and (max-width: 992px) {
+}
+
+@media screen and (max-width: 768px) {
+}
+
+@media screen and (max-width: 576px) {
+}

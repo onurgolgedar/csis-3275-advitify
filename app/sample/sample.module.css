@@ -1,0 +1,40 @@
+.wrapper {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #172554;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+  max-width: 1200px;
+  background: #000000;
+  padding: 24px 48px;
+}
+
+.container h1, .container h2, .container p {
+  color: #ffffff;
+}
+
+
+.link {
+  margin: 8px 0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: #2563eb;
+}
+
+.link:hover {
+  color: #ffffff;
+  background-color: #2563eb;
+}
+
+.container section {
+  background-color: #334155;
+  margin: 100px;
+  padding: 80px;
+  border-radius: 8px;
+}
