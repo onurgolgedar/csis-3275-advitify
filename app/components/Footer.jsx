@@ -26,6 +26,7 @@ const navigationCategories = [{
 }];
 
 export default function Footer() {
+  const year = new Date().getFullYear();
   return (
     <div className={styles.wrapper}>
       <footer className={styles.container}>
@@ -43,7 +44,7 @@ export default function Footer() {
                       category.contents.map((content, index) => {
                         return (
                           <li key={index} className={styles.link}>
-                            <Link href={`/${content}`}>{content}</Link>
+                            <Link href={`/${content.toLocaleLowerCase()}`}>{content}</Link>
                           </li>
                         )
                       })
@@ -53,6 +54,9 @@ export default function Footer() {
               )
             })
           }
+        </div>
+        <div className={styles.copyRight}>
+          <span>Copyright &copy; {year} Advitify</span>
         </div>
       </footer>
     </div>

@@ -21,7 +21,7 @@ export default function NavBar() {
           <span className={styles.logo}>Advitify</span>
         </div>
         <div className={styles.searchBar}>
-          <input className={styles.searchInput} value={input} onChange={e => setInput(e.value)} placeholder="Search for anything"/>
+          <input id="search" className={styles.searchInput} type="search" value={input} onChange={e => setInput(e.value)} placeholder="Search for anything"/>
           <Image className={styles.searchIcon} src="/search_icon.png" alt="search icon" width={18} height={18}></Image>
         </div>
         <ul className={styles.links}>

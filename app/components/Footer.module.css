@@ -2,6 +2,7 @@
   width: 100vw;
   display: flex;
   justify-content: center;
+  border-top: solid #777777 2px;
 }
 
 .container {
@@ -31,9 +32,15 @@
 }
 
 .link {
+  /*  */
 }
 
 .link:hover {
   color: #111827;
-  
+}
+
+.copyRight {
+  display: flex;
+  justify-content: center;
+  margin: 24px 0;
 }
