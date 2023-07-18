@@ -1,0 +1,129 @@
+.wrapper {
+  min-height: 50vh;
+  width: 100vw;
+  margin-top: 24px;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  gap: 48px;
+}
+
+/* side menu style*/
+.line {
+  height: 2px;
+  display: block;
+  background: rgb(255,255,255);
+  background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,1) 70%, rgba(255,255,255,1) 100%);
+  margin: 8px 0;
+}
+
+.sideMenu {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 24px;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  list-style: none;
+  padding: 12px 0;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 0;
+  border: none;
+}
+
+/* dashboard style*/
+.dashboard {
+  width: 75%;
+  margin-right: 24px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  margin: 48px 0;
+}
+
+.section {
+  background-color: #d1d5db;
+  border-radius: 8px;
+  padding: 24px 32px;
+}
+
+.notificationSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+}
+
+.notification {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 0;
+}
+
+.candidateTable {
+  text-align:center;
+  width: 100%;
+  background-color: #FFFFFF;
+  border-collapse: collapse;
+  border-style: solid #363636 1px;
+  border-radius: 8px;
+}
+
+.tableCell {
+  border-style: solid;
+  padding: 5px;
+}
+
+.detail {
+  color: #3b82f6;
+}
+
+.btn {
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  cursor: pointer;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.field {
+  display: flex;
+  gap: 16px;
+}
+
+.submit {
+  width: 80px
+}
+
+.choices {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-right: 8px;
+  margin: 8px 0;
+}
