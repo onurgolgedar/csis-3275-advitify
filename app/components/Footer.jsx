@@ -7,12 +7,12 @@ const logoFont = Abhaya_Libre({
   weight: "800"
 })
 
+
+
 const navigationCategories = [{
   category: "Categories",
-  contents: [
-    "Development", "Business", "Finance & Accounting", "IT & Software", "Office Productivity",
-    "Personal Development", "Design", "Marketing", "Lifestyle", "Photography & Video", "Health&Fitness",
-    "Music", "Teaching & Academic"
+  contents: ["Software", "Cybersecurity", "Cloud computing", "Database", "Customers", "Automation",
+    "Artificial intelligence", "Computing", "Data visualization", "Embedded systems"
   ]
 }, {
   category: "About",

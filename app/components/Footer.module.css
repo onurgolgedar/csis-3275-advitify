@@ -1,46 +1,47 @@
+
 .wrapper {
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  border-top: solid #777777 2px;
+  width: 100vw !important;
+  display: flex !important;
+  justify-content: center !important;
+  border-top: solid #777777 2px !important;
 }
 
 .container {
-  min-height: 300px;
-  width: 100%;
-  padding: 12px 24px;
+  min-height: 300px !important;
+  width: 100% !important;
+  padding: 12px 24px !important;
 }
 
 .logo {
-  font-size: 36px;
-  padding: 8px 12px;
+  font-size: 36px !important;
+  padding: 8px 12px !important;
 }
 
 .categoryContainer {
-  display: flex;
-  justify-content: space-between;
-  padding: 48px 96px 0;
+  display: flex !important;
+  justify-content: space-between !important;
+  padding: 48px 96px 0 !important;
 }
 
 .links {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  color: #9ca3af;
-  list-style: none;
-  padding: 16px 0 0 0;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  color: #9ca3af !important;
+  list-style: none !important;
+  padding: 16px 0 0 0 !important;
 }
 
-.link {
-  /*  */
+.link a {
+  color: #777777 !important;
 }
 
 .link:hover {
-  color: #111827;
+  color: #111827 !important;
 }
 
 .copyRight {
-  display: flex;
-  justify-content: center;
-  margin: 24px 0;
+  display: flex !important;
+  justify-content: center !important;
+  margin: 24px 0 !important;
 }
