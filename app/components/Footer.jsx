@@ -11,30 +11,84 @@ const navigationCategories = [
   {
     category: "Categories",
     contents: [
-      "Software",
-      "Cybersecurity",
-      "Cloud computing",
-      "Database",
-      "Customers",
-      "Automation",
-      "Artificial intelligence",
-      "Computing",
-      "Data visualization",
-      "Embedded systems",
+      {
+        content: "Software",
+        path: "software"
+      },
+      {
+        content: "Cybersecurity",
+        path: "cybersecurity"
+      },
+      {
+        content: "Software",
+        path: "software"
+      },
+      {
+        content: "Cloud computing",
+        path: "cloud-computing"
+      },
+      {
+        content: "Database",
+        path: "database"
+      },
+      {
+        content: "Customers",
+        path: "customers"
+      },
+      {
+        content: "Automation",
+        path: "automation"
+      },
+      {
+        content: "Artificial intelligence",
+        path: "artificial-intelligence"
+      },
+      {
+        content: "Computing",
+        path: "computing"
+      },
+      {
+        content: "Data visualization",
+        path: "data-visualization"
+      },
+      {
+        content: "Embedded systems",
+        path: "embedded-systems",
+      }
     ],
   },
   {
     category: "About",
-    contents: ["About Advitify"],
+    contents: [
+      {
+        content: "About Advitify",
+        path: "about"
+      }
+    ],
   },
   {
     category: "Guide",
     contents: [
-      "Pricing",
-      "Help & Support",
-      "Trust & Safety",
-      "Become a consultant",
-      "Admin",
+      {
+        content: "Pricing",
+        path: "pricing"
+      },
+      {
+        content: "Help & Support",
+        path: "help-and-support"
+      },
+      {
+        content: "Trust & Safety",
+        path: "trust-and-safety"
+      },
+      {
+        content: "Become a consultant",
+        path: "signUpConsultant"
+      },
+      {
+        content: "Admin",
+        path: "admin"
+      },
     ],
   },
   {
@@ -60,8 +114,8 @@ export default function Footer() {
                   {category.contents.map((content, index) => {
                     return (
                       <li key={index} className={styles.link}>
-                        <Link href={`/${content.toLocaleLowerCase()}`}>
-                          {content}
+                        <Link href={`/${content.path}`}>
+                          {content.content}
                         </Link>
                       </li>
                     );
