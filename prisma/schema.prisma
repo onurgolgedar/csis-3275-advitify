@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,12 +7,210 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Users {
-  id           Int       @id @default(autoincrement())
-  username     String?   @db.NVarChar(255)
-  email        String?   @db.NVarChar(255)
-  passwordHash String?   @db.NVarChar(255)
-  userType     String?   @db.NVarChar(255)
-  createdAt    DateTime?
-  updatedAt    DateTime?
+model clients {
+  id                Int               @id(map: "PK__clients__3213E83FAF5CD3E6") @default(autoincrement())
+  userID            Int?
+  companyName       String?           @db.NVarChar(255)
+  contactPerson     String?           @db.NVarChar(255)
+  industry          String?           @db.NVarChar(255)
+  numberOfEmployees Int?
+  createdAt         DateTime?         @db.DateTime
+  updatedAt         DateTime?         @db.DateTime
+  users             users?            @relation(fields: [userID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__clients__userID__31B762FC")
+  meetings          meetings[]
+  payments          payments[]
+  project_clients   project_clients[]
+  reviews           reviews[]
+}
+
+model consultant_availability {
+  id           Int          @id(map: "PK__consulta__3213E83FA09BDABA") @default(autoincrement())
+  consultantID Int?
+  dayOfWeek    String?      @db.NVarChar(255)
+  startTime    DateTime?    @db.DateTime
+  endTime      DateTime?    @db.Time
+  createdAt    DateTime?    @db.DateTime
+  updatedAt    DateTime?    @db.DateTime
+  consultants  consultants? @relation(fields: [consultantID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__consultan__consu__1EA48E88")
+}
+
+model consultant_expertise {
+  id           Int          @id(map: "PK__consulta__3213E83F805A8AB5") @default(autoincrement())
+  consultantID Int?
+  expertiseID  Int?
+  rate         Decimal?     @db.Decimal(18, 0)
+  createdAt    DateTime?    @db.DateTime
+  updatedAt    DateTime?    @db.DateTime
+  consultants  consultants? @relation(fields: [consultantID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__consultan__consu__151B244E")
+  expertise    expertise?   @relation(fields: [expertiseID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__consultan__exper__160F4887")
+}
+
+model consultants {
+  id                      Int                       @id(map: "PK__consulta__3213E83F8EF5AAA7") @default(autoincrement())
+  userID                  Int?
+  fieldOfExpertise        String?                   @db.NVarChar(255)
+  chargeRate              Decimal?                  @db.Decimal(18, 0)
+  legalAgreement          String?                   @db.Text
+  rating                  Decimal?                  @db.Decimal(18, 0)
+  createdAt               DateTime?                 @db.DateTime
+  updatedAt               DateTime?                 @db.DateTime
+  consultant_availability consultant_availability[]
+  consultant_expertise    consultant_expertise[]
+  users                   users?                    @relation(fields: [userID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__consultan__userI__0D7A0286")
+  meetings                meetings[]
+  payments                payments[]
+  project_consultants     project_consultants[]
+  reviews                 reviews[]
+}
+
+model expertise {
+  id                   Int                    @id(map: "PK__expertis__3213E83F31FA1931") @default(autoincrement())
+  name                 String?                @db.NVarChar(255)
+  description          String?                @db.Text
+  createdAt            DateTime?              @db.DateTime
+  updatedAt            DateTime?              @db.DateTime
+  consultant_expertise consultant_expertise[]
+  project_expertise    project_expertise[]
+}
+
+model meetings {
+  id              Int          @id(map: "PK__meetings__3213E83F6A5DC24D") @default(autoincrement())
+  clientID        Int?
+  consultantID    Int?
+  meetingDateTime DateTime?    @db.DateTime
+  duration        Decimal?     @db.Decimal(18, 0)
+  status          String?      @db.NVarChar(255)
+  url             String?      @db.NVarChar(255)
+  createdAt       DateTime?    @db.DateTime
+  updatedAt       DateTime?    @db.DateTime
+  clients         clients?     @relation(fields: [clientID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__meetings__client__3C34F16F")
+  consultants     consultants? @relation(fields: [consultantID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__meetings__consul__17F790F9")
+  payments        payments[]
+}
+
+model notifications {
+  id        Int       @id(map: "PK__notifica__3213E83FF16DFA78") @default(autoincrement())
+  userID    Int?
+  message   String?   @db.Text
+  status    String?   @db.NVarChar(255)
+  createdAt DateTime? @db.DateTime
+  users     users?    @relation(fields: [userID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__notificat__userI__1DB06A4F")
+}
+
+model payments {
+  id            Int          @id(map: "PK__payments__3213E83F10E0B9B6") @default(autoincrement())
+  clientID      Int?
+  consultantID  Int?
+  meetingID     Int?
+  amount        Decimal?     @db.Decimal(18, 0)
+  status        String?      @db.NVarChar(255)
+  paymentMethod String?      @db.NVarChar(255)
+  createdAt     DateTime?    @db.DateTime
+  updatedAt     DateTime?    @db.DateTime
+  clients       clients?     @relation(fields: [clientID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__payments__client__3E1D39E1")
+  consultants   consultants? @relation(fields: [consultantID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__payments__consul__19DFD96B")
+  meetings      meetings?    @relation(fields: [meetingID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__payments__meetin__1AD3FDA4")
+}
+
+model profiles {
+  id           Int       @id(map: "PK__profiles__3213E83FC3FFF763") @default(autoincrement())
+  userID       Int?
+  firstName    String?   @db.NVarChar(255)
+  lastName     String?   @db.NVarChar(255)
+  contactInfo  String?   @db.Text
+  bio          String?   @db.Text
+  profileImage String?   @db.NVarChar(255)
+  createdAt    DateTime? @db.DateTime
+  updatedAt    DateTime? @db.DateTime
+  users        users?    @relation(fields: [userID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__profiles__userID__55009F39")
+}
+
+model project_clients {
+  id        Int       @id(map: "PK__project___3213E83F0493C191") @default(autoincrement())
+  projectID Int?
+  clientID  Int?
+  createdAt DateTime? @db.DateTime
+  updatedAt DateTime? @db.DateTime
+  clients   clients?  @relation(fields: [clientID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__project_c__clien__3493CFA7")
+  projects  projects? @relation(fields: [projectID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__project_c__proje__0E6E26BF")
+}
+
+model project_consultants {
+  id           Int          @id(map: "PK__project___3213E83F3DB5D4D0") @default(autoincrement())
+  projectID    Int?
+  consultantID Int?
+  createdAt    DateTime?    @db.DateTime
+  updatedAt    DateTime?    @db.DateTime
+  consultants  consultants? @relation(fields: [consultantID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__project_c__consu__114A936A")
+  projects     projects?    @relation(fields: [projectID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__project_c__proje__10566F31")
+}
+
+model project_expertise {
+  id          Int        @id(map: "PK__project___3213E83FAF9A6AAE") @default(autoincrement())
+  projectID   Int?
+  expertiseID Int?
+  createdAt   DateTime?  @db.DateTime
+  updatedAt   DateTime?  @db.DateTime
+  expertise   expertise? @relation(fields: [expertiseID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__project_e__exper__14270015")
+  projects    projects?  @relation(fields: [projectID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__project_e__proje__1332DBDC")
+}
+
+model project_notes {
+  id        Int       @id(map: "PK__project___3213E83F86070763") @default(autoincrement())
+  projectID Int?
+  note      String?   @db.Text
+  createdAt DateTime? @db.DateTime
+  updatedAt DateTime? @db.DateTime
+  projects  projects? @relation(fields: [projectID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__project_n__proje__123EB7A3")
+}
+
+model projects {
+  id                  Int                   @id(map: "PK__projects__3213E83F5D885ED6") @default(autoincrement())
+  projectName         String?               @db.NVarChar(255)
+  description         String?               @db.Text
+  startDate           DateTime?             @db.DateTime
+  endDate             DateTime?             @db.DateTime
+  status              String?               @db.NVarChar(255)
+  progress            Decimal?              @db.Decimal(18, 0)
+  createdAt           DateTime?             @db.DateTime
+  updatedAt           DateTime?             @db.DateTime
+  project_clients     project_clients[]
+  project_consultants project_consultants[]
+  project_expertise   project_expertise[]
+  project_notes       project_notes[]
+}
+
+model reviews {
+  id           Int          @id(map: "PK__reviews__3213E83FA587E126") @default(autoincrement())
+  clientID     Int?
+  consultantID Int?
+  rating       Decimal?     @db.Decimal(18, 0)
+  comment      String?      @db.Text
+  createdAt    DateTime?    @db.DateTime
+  clients      clients?     @relation(fields: [clientID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__reviews__clientI__40F9A68C")
+  consultants  consultants? @relation(fields: [consultantID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__reviews__consult__1CBC4616")
+}
+
+model sysdiagrams {
+  name         String @db.NVarChar(128)
+  principal_id Int
+  diagram_id   Int    @id(map: "PK__sysdiagr__C2B05B61256D8B9C") @default(autoincrement())
+  version      Int?
+  definition   Bytes?
+
+  @@unique([principal_id, name], map: "UK_principal_name")
+}
+
+model users {
+  id            Int             @id(map: "PK__users__3213E83F090AD4D6") @default(autoincrement())
+  username      String?         @db.NVarChar(255)
+  email         String?         @db.NVarChar(255)
+  passwordHash  String?         @db.NVarChar(255)
+  userType      String?         @db.NVarChar(255)
+  createdAt     DateTime?       @db.DateTime
+  updatedAt     DateTime?       @db.DateTime
+  clients       clients[]
+  consultants   consultants[]
+  notifications notifications[]
+  profiles      profiles[]
 }
