@@ -1,0 +1,10 @@
+.border {
+  min-height: 100px;
+  min-width: 100px;
+  border: solid black 5px;
+  margin: 10px;
+}
+
+.flex {
+  display: flex;
+}
