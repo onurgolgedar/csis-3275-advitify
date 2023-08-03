@@ -1,0 +1,56 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .flexboxItem{
+    display: flex;
+    margin: 10px;
+    border: 3px solid #1333;
+    background-color: #dfdfdf;
+    
+   
+  }
+
+  .flexboxItem1{
+    min-height: 100px;
+    
+    
+  }
+
+  .flexboxItem2{
+    min-height: 200px;
+  }
+
+  .flexboxItem3{
+    min-height: 300px;
+  }
+
+.dataTabContent{
+  display: none;
+}
+
+.active.dataTabContent{
+  display: block;
+}
+
+.tabs{
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid black;
+}
+
+.tab{
+  cursor:pointer;
+  padding: 10px;
+}
+.tab.active{
+  background-color: #ccc;
+}
+.tab:hover{
+  background-color: #AAA;
+}
