@@ -2,6 +2,7 @@
 
 import styles from "../signIn/signIn.css";
 import { useState } from "react";
+import { useRouter } from 'next/navigation'
 
 export default function signIn() {
   const [email, setEmail] = useState("");
@@ -10,10 +11,12 @@ export default function signIn() {
     "Please use your email and password to login."
   );
 
+  const router = useRouter();
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const response = await fetch("/api/login/login", {
+    const response = await fetch("/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,11 +30,25 @@ export default function signIn() {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-
+    const { data }= await response.json();
+    console.log("Response Data:", data.user);
+    if(data.user !== null){
+      console.log("Login successfull")
+      sessionStorage.setItem("user",JSON.stringify(data.user))
+      router.push('/')
+      return
+    }
+    else{
+      console.log("Login not successfull")
+      return
+    }
+    
     if (response.headers.get("content-type")?.includes("application/json")) {
       const data = response;
       console.log(data);
       setMessage(data.message);
+      
+
     } else console.warn("The response was not in JSON format.");
   };
 
