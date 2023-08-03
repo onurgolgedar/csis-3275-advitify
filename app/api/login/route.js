@@ -7,27 +7,34 @@ export async function POST(req, res) {
   const { username, password } = body;
 
   const login_result = await login(username, password);
-  if (login_result != false) {
+
+  if (login_result !== "") {
     console.log("-> Login successful");
     console.log("-> Token : " + login_result);
 
-    return new Response(
+
+    const response = new Response(
       JSON.stringify({
         data: {
-          message: "You have logged in successfully."
+          message: "You have logged in successfully.",
+          token: login_result
         },
       })
     );
+    response.headers.set("content-type", "application/json");
+    return response;
   } else {
     console.log("-> Login failed");
 
-    return new Response(
+    const response = new Response(
       JSON.stringify({
         data: {
           message: "Given credentials were invalid."
         },
       })
     );
+    response.headers.set("content-type", "application/json");
+    return response;
   }
 }
 
@@ -39,10 +46,10 @@ async function login(username, password) {
     },
   });
 
-  if (!user) return false;
+  if (!user) return "";
 
   const isValidPassword = await bcrypt.compare(password, user.passwordHash);
-  if (!isValidPassword) return false;
+  if (!isValidPassword) return "";
 
   const token = generateToken(user);
 
@@ -58,7 +65,7 @@ function generateToken(user) {
     username: user.username,
   };
 
-  return jwt.sign(payload, process.env.JWT_SECRET, {
+  return jwt.sign(payload, "process.env.JWT_SECRET", {
     expiresIn: "1h",
   });
 }
