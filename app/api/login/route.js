@@ -7,8 +7,7 @@ export async function POST(req, res) {
   const { username, password } = body;
 
   const login_result = await login(username, password);
-
-  if (login_result !== "") {
+  if (login_result) {
     console.log("-> Login successful");
     console.log("-> Token : " + login_result);
 
@@ -17,11 +16,12 @@ export async function POST(req, res) {
       JSON.stringify({
         data: {
           message: "You have logged in successfully.",
-          token: login_result
+          user: login_result
         },
       })
     );
     response.headers.set("content-type", "application/json");
+
     return response;
   } else {
     console.log("-> Login failed");
@@ -29,7 +29,8 @@ export async function POST(req, res) {
     const response = new Response(
       JSON.stringify({
         data: {
-          message: "Given credentials were invalid."
+          message: "Given credentials were invalid.",
+          user: null
         },
       })
     );
@@ -45,16 +46,13 @@ async function login(username, password) {
       email: username,
     },
   });
-
-  if (!user) return "";
+  console.log(user);
+  if(!user) return null;
 
   const isValidPassword = await bcrypt.compare(password, user.passwordHash);
-  if (!isValidPassword) return "";
+  if (!isValidPassword) return null;
 
-  const token = generateToken(user);
-
-  console.log("-> Logged in");
-  return token
+  return user;
 }
 
 function generateToken(user) {
@@ -69,3 +67,36 @@ function generateToken(user) {
     expiresIn: "1h",
   });
 }
+
+// async function login(username, password) {
+  
+//   const prisma = new PrismaClient();
+//   const user = await prisma.users.findFirst({
+//     where: {
+//       email: username,
+//     },
+//   });
+
+//   if (!user) return "";
+
+//   const isValidPassword = await bcrypt.compare(password, user.passwordHash);
+//   if (!isValidPassword) return "";
+
+//   const token = generateToken(user);
+
+//   console.log("-> Logged in");
+//   return token
+// }
+
+// function generateToken(user) {
+//   console.log(user);
+
+//   const payload = {
+//     userId: user.id,
+//     username: user.username,
+//   };
+
+//   return jwt.sign(payload, "process.env.JWT_SECRET", {
+//     expiresIn: "1h",
+//   });
+// }
