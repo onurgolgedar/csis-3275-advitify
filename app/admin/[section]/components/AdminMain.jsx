@@ -3,9 +3,7 @@ import { Suspense } from "react";
 import NotificationDisplay from "./NotificationDisplay";
 import CandidateDisplay from "./CandidateDisplay";
 
-
 export default async function AdminMain() {
-
   return (
     <div className={styles.content}>
       <section>
@@ -37,7 +35,7 @@ export default async function AdminMain() {
         </div>
       </section>
     </div>
-  )
+  );
 }
 
 function Loading() {
@@ -52,5 +50,5 @@ function Loading() {
         <td className={styles.tableCell}></td>
       </tr>
     </tbody>
-  )
+  );
 }

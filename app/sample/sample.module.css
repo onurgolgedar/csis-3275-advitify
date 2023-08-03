@@ -15,10 +15,11 @@
   padding: 24px 48px;
 }
 
-.container h1, .container h2, .container p {
+.container h1,
+.container h2,
+.container p {
   color: #ffffff;
 }
-
 
 .link {
   margin: 8px 0;

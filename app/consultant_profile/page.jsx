@@ -1,10 +1,10 @@
-"use client"
-import styles from "./container.module.css"
-import data from "./test.json"
-import Image from "next/image"
+"use client";
+import styles from "./container.module.css";
+import data from "./test.json";
+import Image from "next/image";
 
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css'
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 import React, { useState } from "react";
 
 export default function Consultant() {
@@ -30,7 +30,9 @@ export default function Consultant() {
     <div className={styles.container}>
       <div className={styles.flexboxItem}>
         <div>
-          <p><b>PROFILE</b></p> 
+          <p>
+            <b>PROFILE</b>
+          </p>
           <p>Consultant Name: {data.name}</p>
           <p>Rate:</p>
           <p>Joined:</p>
@@ -41,30 +43,40 @@ export default function Consultant() {
             alt="main_image1"
             width={600}
             height={300}
-            style={{objectFit: "contain"}}
+            style={{ objectFit: "contain" }}
             placeholder="blur"
-            blurDataURL={'/main_image1.png'}
+            blurDataURL={"/main_image1.png"}
           />
         </div>
       </div>
-      
+
       <div>
         <ul class={styles.tabs}>
-          <li data-tab-target="#schedule" className={styles.tab}>Schedule</li>
-          <li data-tab-target="#rate"className={styles.tab}>Rate</li>
-          <li data-tab-target="#about" className={styles.tab}>About</li>
+          <li data-tab-target="#schedule" className={styles.tab}>
+            Schedule
+          </li>
+          <li data-tab-target="#rate" className={styles.tab}>
+            Rate
+          </li>
+          <li data-tab-target="#about" className={styles.tab}>
+            About
+          </li>
         </ul>
       </div>
 
       <div class={styles.dataTabContent}>
-        <div id = "schedule" className={styles.dataTabContent} class={styles.tab.active}>
+        <div
+          id="schedule"
+          className={styles.dataTabContent}
+          class={styles.tab.active}
+        >
           <p>schedule</p>
         </div>
       </div>
-      <div id = "rate" className={styles.dataTabContent}>
+      <div id="rate" className={styles.dataTabContent}>
         <p>Rate</p>
       </div>
-      <div id ="about" className={styles.dataTabContent}>
+      <div id="about" className={styles.dataTabContent}>
         <p>vyva</p>
       </div>
 
@@ -77,9 +89,7 @@ export default function Consultant() {
                 {hoursArray.map((hour) => (
                   <tr key={hour} onClick={() => handleHourClick(hour)}>
                     <td>
-                      <button
-                        onClick={() => handleHourClick(hour)}
-                      >
+                      <button onClick={() => handleHourClick(hour)}>
                         {`${hour}:00`}
                       </button>
                     </td>
@@ -89,8 +99,8 @@ export default function Consultant() {
             </table>
           </div>
         </div>
-        <Calendar onChange={onChange} onClickDay={(e) => a(e)} value={value}/>
-      </div> 
+        <Calendar onChange={onChange} onClickDay={(e) => a(e)} value={value} />
+      </div>
     </div>
   );
 }

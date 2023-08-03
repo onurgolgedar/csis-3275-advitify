@@ -7,27 +7,31 @@ import AddClientWindow from "./AddClientWindow";
 export default async function AdminClients({ param }) {
   // for switching admin action
   const { searchParams } = param;
-  
+
   return (
     <div className={styles.content}>
-      {
-        searchParams.action === "add" || searchParams.action === "edit"
-          ?
-          <section>
-            <AddClientWindow param={param}/>
-          </section>
-          :
-          <></>
-      }
+      {searchParams.action === "add" || searchParams.action === "edit" ? (
+        <section>
+          <AddClientWindow param={param} />
+        </section>
+      ) : (
+        <></>
+      )}
 
       <section>
         <h3>Clients / Consultants </h3>
         <div className={styles.choices}>
-          <Link className={styles.btn} href="/admin/clients?action=add">ADD</Link>
+          <Link className={styles.btn} href="/admin/clients?action=add">
+            ADD
+          </Link>
           <span> / </span>
-          <Link className={styles.btn} href="/admin/clients?action=edit">EDIT</Link>
+          <Link className={styles.btn} href="/admin/clients?action=edit">
+            EDIT
+          </Link>
           <span> / </span>
-          <Link className={styles.btn} href="/admin/clients?action=delete">DELETE</Link>
+          <Link className={styles.btn} href="/admin/clients?action=delete">
+            DELETE
+          </Link>
         </div>
         <div className={styles.section}>
           <table className={styles.candidateTable}>
@@ -48,7 +52,7 @@ export default async function AdminClients({ param }) {
         </div>
       </section>
     </div>
-  )
+  );
 }
 
 function Loading() {
@@ -63,5 +67,5 @@ function Loading() {
         <td className={styles.tableCell}></td>
       </tr>
     </tbody>
-  )
+  );
 }
