@@ -7,15 +7,37 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import React, { useState } from "react";
 
+
+
+const price = [
+  {
+    Rating: "5/5",
+    Comment: "Best consultant out there"
+  },
+  {
+    Rating: "5/5",
+    Comment: "Best consultant out there"
+  },
+  {
+    Rating: "5/5",
+    Comment: "Best consultant out there"
+  },
+]
+
+
+const about = [
+  {
+    About: "Working with this professional was an absolute pleasure!"
+  }
+ 
+]
+
 export default function Consultant() {
   const [value, onChange] = useState(new Date());
   const [selectedHour, setSelectedHour] = useState(null);
+  const [activeTab, setActiveTab] = useState("schedule"); // Default active tab is "schedule"
 
   function a(e) {
-    console.log(e.getDate());
-  }
-
-  function handleDateClick(e) {
     console.log(e.getDate());
   }
 
@@ -23,8 +45,10 @@ export default function Consultant() {
     setSelectedHour(hour);
   }
 
-  // Generate an array for the hours of the day (0-23)
   const hoursArray = Array.from({ length: 24 }, (_, index) => index);
+
+  // Determine whether to show the Calendar based on the activeTab
+  const showCalendar = activeTab === "schedule";
 
   return (
     <div className={styles.container}>
@@ -34,8 +58,8 @@ export default function Consultant() {
             <b>PROFILE</b>
           </p>
           <p>Consultant Name: {data.name}</p>
-          <p>Rate:</p>
-          <p>Joined:</p>
+          <p>Rate:{data.rate}</p>
+          <p>Joined:{data.Joined}</p>
         </div>
         <div>
           <Image
@@ -51,56 +75,78 @@ export default function Consultant() {
       </div>
 
       <div>
-        <ul class={styles.tabs}>
-          <li data-tab-target="#schedule" className={styles.tab}>
+        <ul className={styles.tabs}>
+          <li onClick={() => setActiveTab("schedule")} className={activeTab === "schedule" ? styles.tabActive : styles.tab}>
             Schedule
           </li>
-          <li data-tab-target="#rate" className={styles.tab}>
+          <li onClick={() => setActiveTab("rate")} className={activeTab === "rate" ? styles.tabActive : styles.tab}>
             Rate
           </li>
-          <li data-tab-target="#about" className={styles.tab}>
+          <li onClick={() => setActiveTab("about")} className={activeTab === "about" ? styles.tabActive : styles.tab}>
             About
           </li>
         </ul>
       </div>
 
-      <div class={styles.dataTabContent}>
-        <div
-          id="schedule"
-          className={styles.dataTabContent}
-          class={styles.tab.active}
-        >
-          <p>schedule</p>
-        </div>
+      {/* Use activeTab state to conditionally show/hide tab content */}
+      <div className="dataTabContent">
+        {activeTab === "schedule" && (
+          <div id="schedule">
+            
+          </div>
+        )}
+        
+        {activeTab === "rate" && (
+          <div id="rate" style={{ display: activeTab === "rate" ? "block" : "none" }}>
+           {price.map((price, index) => {
+        return (
+          <li key={index}>
+            <span>{price.Rating}</span>
+           <p>{price.Comment}</p>
+         </li>
+        );
+     })}
+          </div>
+        )}
+
+  {activeTab === "about" && (
+    <div id="about" style={{ display: activeTab === "about" ? "block" : "none" }}>
+       {about.map((about, index) => {
+        return (
+          <li key={index}>
+           <span>{about.About}</span>
+         </li>
+        );
+     })}
+      
       </div>
-      <div id="rate" className={styles.dataTabContent}>
-        <p>Rate</p>
-      </div>
-      <div id="about" className={styles.dataTabContent}>
-        <p>vyva</p>
+      )}
+
       </div>
 
       <div className={`${styles.flexboxItem} ${styles.flexboxItem1}`}>
+        {/* Conditionally render the Calendar component */}
+        {showCalendar && 
+        <>
         <div>
-          <div>
-            {/* Additional content goes here */}
-            <table>
-              <tbody>
-                {hoursArray.map((hour) => (
-                  <tr key={hour} onClick={() => handleHourClick(hour)}>
-                    <td>
-                      <button onClick={() => handleHourClick(hour)}>
-                        {`${hour}:00`}
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <table>
+            <tbody>
+              {hoursArray.map((hour) => (
+                <tr key={hour} onClick={() => handleHourClick(hour)}>
+                  <td>
+                    <button onClick={() => handleHourClick(hour)}>{`${hour}:00`}</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-        <Calendar onChange={onChange} onClickDay={(e) => a(e)} value={value} />
+        <Calendar onChange={onChange} onClickDay={a} value={value} />
+        </>
+        }
       </div>
     </div>
   );
 }
+
+
