@@ -58,3 +58,8 @@
   color: #000000 !important;
   text-decoration: none !important;
 }
+
+.btn {
+  background-color: rgba(0, 0, 0, 0) !important;
+  border: none !important;
+}

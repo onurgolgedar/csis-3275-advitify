@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation'
 
-import styles from './signUp.css';
+import styles from './signUp.module.css';
+import Image from 'next/image';
 
 export default function SignUpForm() {
   const [formData, setFormData] = useState({
@@ -35,13 +36,13 @@ export default function SignUpForm() {
   };
 
   return (
-    <main className="main">
-      <div className="container">
-        <div className="left-column">
-          <div className="signup-container">
-            <h1 className="heading">Become an Advitify Member</h1>
+    <main className={styles.main}>
+      <div className={styles.container}>
+        <div className={styles.leftColumn}>
+          <div className={styles.signupContainer}>
+            <h1 className={styles.heading}>Become an Advitify Member</h1>
             <form onSubmit={handleSubmit}>
-              <div className="form-group">
+              <div className={styles.formGroup}>
                 <label htmlFor="username">Username:</label>
                 <input
                   type="text"
@@ -53,7 +54,7 @@ export default function SignUpForm() {
                   required
                 />
               </div>
-              <div className="form-group">
+              <div className={styles.formGroup}>
                 <label htmlFor="email">Email:</label>
                 <input
                   type="email"
@@ -65,7 +66,7 @@ export default function SignUpForm() {
                   required
                 />
               </div>
-              <div className="form-group">
+              <div className={styles.formGroup}>
                 <label htmlFor="password">Password:</label>
                 <input
                   type="password"
@@ -89,14 +90,14 @@ export default function SignUpForm() {
                   required
                 />
               </div> */}
-              <button type="submit" className="signup-button">
+              <button type="submit" className={styles.signupButton}>
                 Sign Up
               </button>
             </form>
           </div>
         </div>
-        <div className="right-column">
-          <img src="/contract_image.png" alt="Image Description" />
+        <div className={styles.rightColumn}>
+          <Image width={500} height={500} src="/contract_image.png" alt="Image Description" />
         </div>
       </div>
     </main>

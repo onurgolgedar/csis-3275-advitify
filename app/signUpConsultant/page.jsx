@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation'
 
-import styles from './signUpConsultant.css';
-
 export default function SignUpForm() {
   const [formData, setFormData] = useState({
     username: '',
@@ -13,7 +11,7 @@ export default function SignUpForm() {
     userType: '3',
   });
   const router = useRouter();
-  
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,7 +28,7 @@ export default function SignUpForm() {
       console.log('Registration successful!');
       router.push('/')
       //redirect('/','push')
-      
+
     } catch (error) {
       console.error('Error during sign-up:', error);
       // Handle registration error (e.g., show an error message)
@@ -38,11 +36,16 @@ export default function SignUpForm() {
   };
 
 
+
   return (
 
     <main className="main">
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"></link>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossOrigin="anonymous"></link>
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossOrigin="anonymous"
+        defer
+      ></script>
       <div className="container">
         <div className="left-column">
           <div className="signup-container">
@@ -97,25 +100,25 @@ export default function SignUpForm() {
                 />
               </div> */}
               <div className="form-group">
-              <label htmlFor="documents">Attach Documents/Certifications:</label>
-              <div className="input-group">
-                <div className="custom-file">
-                  <input type="file" className="custom-file-input" id="documents" />
-                  <label className="custom-file-label" htmlFor="documents">
-                  </label>
+                <label htmlFor="documents">Attach Documents/Certifications:</label>
+                <div className="input-group">
+                  <div className="custom-file">
+                    <input type="file" className="custom-file-input" id="documents" />
+                    <label className="custom-file-label" htmlFor="documents">
+                    </label>
+                  </div>
                 </div>
               </div>
-              </div>
               <div className="form-group">
-              <label htmlFor="experience">Experience:</label>
-              <textarea
-                id="experience"
-                placeholder="Enter your experience details here..."
-                rows="6"
-              ></textarea>
+                <label htmlFor="experience">Experience:</label>
+                <textarea
+                  id="experience"
+                  placeholder="Enter your experience details here..."
+                  rows="6"
+                ></textarea>
               </div>
               <button type="submit" className="signup-button">
-                Sign Up 
+                Sign Up
               </button>
             </form>
           </div>
