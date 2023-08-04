@@ -18,8 +18,8 @@
 
 .categoryContainer {
   display: flex !important;
-  justify-content: space-between !important;
-  padding: 48px 96px 0 !important;
+  justify-content: space-around !important;
+  
 }
 
 .links {
