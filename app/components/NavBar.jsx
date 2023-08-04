@@ -1,10 +1,12 @@
 "use client";
 
 import styles from "./NavBar.module.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Abhaya_Libre } from "next/font/google";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation"
+import { UserContext } from "../components/UserContext"
 
 const logoFont = Abhaya_Libre({
   subsets: ["latin"],
@@ -13,6 +15,14 @@ const logoFont = Abhaya_Libre({
 
 export default function NavBar() {
   const [input, setInput] = useState("");
+  const { user } = useContext(UserContext);
+  const router = useRouter();
+  async function navigateTo() {
+    if (user !== undefined) {
+      router.push(`/dashboard/${user?.userType === "2" ? "client" : "consultant"}/${user?.id}`)
+      return;
+    }
+  }
   return (
     <header className={styles.wrapper}>
       <nav className={styles.container}>
@@ -48,14 +58,14 @@ export default function NavBar() {
             <Link href="/signUpMember">Sign up</Link>
           </li>
           <li className={styles.link}>
-            <Link href="#">
+            <button onClick={() => navigateTo()}>
               <Image
                 src="/guest_icon.png"
                 alt="guest icon"
                 width={32}
                 height={34}
               />
-            </Link>
+            </button>
           </li>
         </ul>
       </nav>
