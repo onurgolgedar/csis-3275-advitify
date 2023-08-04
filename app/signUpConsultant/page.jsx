@@ -1,7 +1,8 @@
 "use client"
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
+import styles from "./signUpConsultant.module.css";
 
 export default function SignUpForm() {
   const [formData, setFormData] = useState({
@@ -39,19 +40,13 @@ export default function SignUpForm() {
 
   return (
 
-    <main className="main">
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossOrigin="anonymous"></link>
-      <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-        crossOrigin="anonymous"
-        defer
-      ></script>
-      <div className="container">
-        <div className="left-column">
-          <div className="signup-container">
-            <h1 className="heading">Become an Advitify Consultant</h1>
+    <main>
+      <div className={styles.container}>
+        <div className={styles.leftColumn}>
+          <div className={styles.signupContainer}>
+            <h1 className={styles.heading}>Become an Advitify Consultant</h1>
             <form onSubmit={handleSubmit}>
-              <div className="form-group">
+              <div className={styles.formGroup}>
                 <label htmlFor="username">Username:</label>
                 <input
                   type="text"
@@ -63,7 +58,7 @@ export default function SignUpForm() {
                   required
                 />
               </div>
-              <div className="form-group">
+              <div className={styles.formGroup}>
                 <label htmlFor="email">Email:</label>
                 <input
                   type="email"
@@ -75,7 +70,7 @@ export default function SignUpForm() {
                   required
                 />
               </div>
-              <div className="form-group">
+              <div className={styles.formGroup}>
                 <label htmlFor="password">Password:</label>
                 <input
                   type="password"
@@ -87,19 +82,7 @@ export default function SignUpForm() {
                   required
                 />
               </div>
-              {/* <div className="form-group">
-                <label htmlFor="userType">User Type:</label>
-                <input
-                  type="text"
-                  id="userType"
-                  name="userType"
-                  value={formData.userType}
-                  onChange={handleChange}
-                  placeholder="Enter your User Type"
-                  required
-                />
-              </div> */}
-              <div className="form-group">
+              <div className={styles.formGroup}>
                 <label htmlFor="documents">Attach Documents/Certifications:</label>
                 <div className="input-group">
                   <div className="custom-file">
@@ -109,7 +92,7 @@ export default function SignUpForm() {
                   </div>
                 </div>
               </div>
-              <div className="form-group">
+              <div className={styles.formGroup}>
                 <label htmlFor="experience">Experience:</label>
                 <textarea
                   id="experience"
@@ -117,13 +100,13 @@ export default function SignUpForm() {
                   rows="6"
                 ></textarea>
               </div>
-              <button type="submit" className="signup-button">
+              <button type="submit" className={styles.signupButton}>
                 Sign Up
               </button>
             </form>
           </div>
         </div>
-        <div className="right-column">
+        <div className={styles.rightColumn}>
           <img src='/contract_image.png' alt="Image Description" />
         </div>
       </div>

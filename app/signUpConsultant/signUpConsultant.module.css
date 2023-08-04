@@ -5,6 +5,7 @@
   align-items: center;
   gap: 48px;
   height: 100%;
+  padding: 48px 0;
 }
 
 .container h1 {
@@ -38,8 +39,8 @@
   background-color: #eceaea;
   border-radius: 10px;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
-  position: relative;
-  z-index: 1;
+  position: relative; /* Set the left column as a positioned element */
+  z-index: 1; /* Ensure the left column is above the right column */
 }
 
 .signupContainer {

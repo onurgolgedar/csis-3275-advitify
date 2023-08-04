@@ -7,6 +7,42 @@ const logoFont = Abhaya_Libre({
   weight: "800",
 });
 
+export default function Footer() {
+  const year = new Date().getFullYear();
+  return (
+    <div className={styles.wrapper}>
+      <footer className={styles.container}>
+        <div className={logoFont.className}>
+          <span className={styles.logo}>Advitify</span>
+        </div>
+        <div className={styles.categoryContainer}>
+          {navigationCategories.map((category) => {
+            return (
+              <div key={category.category}>
+                <h2>{category.category}</h2>
+                <ul className={styles.links}>
+                  {category.contents.map((content, index) => {
+                    return (
+                      <li key={index} className={styles.link}>
+                        <Link href={`/${content.path}`}>
+                          {content.content}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            );
+          })}
+        </div>
+        <div className={styles.copyRight}>
+          <span>Copyright &copy; {year} Advitify</span>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
 const navigationCategories = [
   {
     category: "Categories",
@@ -93,42 +129,23 @@ const navigationCategories = [
   },
   {
     category: "Others",
-    contents: ["Terms", "Privacy policy", "Sitemap", "Accessibility statement"],
+    contents: [
+      {
+        content: "Terms",
+        path: "terms"
+      },
+      {
+        content: "Privacy policy",
+        path: "privacy-policy"
+      },
+      {
+        content: "Sitemap",
+        path: "sitemap"
+      },
+      {
+        content: "Accessibility statement",
+        path: "accessibility-statement"
+      },
+    ]
   },
 ];
-
-export default function Footer() {
-  const year = new Date().getFullYear();
-  return (
-    <div className={styles.wrapper}>
-      <footer className={styles.container}>
-        <div className={logoFont.className}>
-          <span className={styles.logo}>Advitify</span>
-        </div>
-        <div className={styles.categoryContainer}>
-          {navigationCategories.map((category) => {
-            return (
-              <div key={category.category}>
-                <h2>{category.category}</h2>
-                <ul className={styles.links}>
-                  {category.contents.map((content, index) => {
-                    return (
-                      <li key={index} className={styles.link}>
-                        <Link href={`/${content.path}`}>
-                          {content.content}
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            );
-          })}
-        </div>
-        <div className={styles.copyRight}>
-          <span>Copyright &copy; {year} Advitify</span>
-        </div>
-      </footer>
-    </div>
-  );
-}

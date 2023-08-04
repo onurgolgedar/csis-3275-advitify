@@ -1,4 +1,3 @@
-import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -114,7 +113,7 @@ export default function Home() {
         crossOrigin="anonymous"
         defer
       ></script>
-      <section id="hero" className="bg-body-tertiary">
+      <section id="hero" className="bg-body-tertiary pt-5">
         <div className="container bg-body-tertiary">
           <div className="row">
             <div className="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="fade-up" >
@@ -129,7 +128,7 @@ export default function Home() {
                       <div className="col-sm">
                         <h6 className="fw-normal text-muted mb-3">
                           Find an IT specialist with the correct expertise to
-                          help you accomplish the project you're working on.
+                          help you accomplish the project you&#39;re working on.
                           Advitify gives you the ability to find the correct
                           professional from the comfort of your office
                         </h6>
@@ -183,7 +182,7 @@ export default function Home() {
                 consultants.map((consultant, index) => {
                   return (
                     <div key={index} className="col">
-                      <div className="card">
+                      <div className="card mb-4">
                         <Image
                           className="card-img-top"
                           src={consultant.imgUrl}
@@ -215,7 +214,7 @@ export default function Home() {
               {categories.map((category, index) => {
                 return (
                   <div key={index} className="col">
-                    <div className="card">
+                    <div className="card mb-4">
                       <Image
                         className="card-img-top"
                         src={category.imgUrl}

@@ -36,7 +36,7 @@ export default function SignUpForm() {
   };
 
   return (
-    <main className={styles.main}>
+    <main>
       <div className={styles.container}>
         <div className={styles.leftColumn}>
           <div className={styles.signupContainer}>
@@ -78,18 +78,6 @@ export default function SignUpForm() {
                   required
                 />
               </div>
-              {/* <div className="form-group">
-                <label htmlFor="userType">User Type:</label>
-                <input
-                  type="text"
-                  id="userType"
-                  name="userType"
-                  value={formData.userType}
-                  onChange={handleChange}
-                  placeholder="Enter your User Type"
-                  required
-                />
-              </div> */}
               <button type="submit" className={styles.signupButton}>
                 Sign Up
               </button>
