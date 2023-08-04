@@ -2,12 +2,9 @@
 import styles from "./container.module.css";
 import data from "./test.json";
 import Image from "next/image";
-
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import React, { useState } from "react";
-
-
+import { useState } from "react";
 
 const price = [
   {
@@ -29,10 +26,13 @@ const about = [
   {
     About: "Working with this professional was an absolute pleasure!"
   }
- 
+
 ]
 
-export default function Consultant() {
+export default function Consultant({ params }) {
+  const { consultantId } = params;
+  console.log(consultantId);
+
   const [value, onChange] = useState(new Date());
   const [selectedHour, setSelectedHour] = useState(null);
   const [activeTab, setActiveTab] = useState("schedule"); // Default active tab is "schedule"
@@ -92,57 +92,57 @@ export default function Consultant() {
       <div className="dataTabContent">
         {activeTab === "schedule" && (
           <div id="schedule">
-            
-          </div>
-        )}
-        
-        {activeTab === "rate" && (
-          <div id="rate" style={{ display: activeTab === "rate" ? "block" : "none" }}>
-           {price.map((price, index) => {
-        return (
-          <li key={index}>
-            <span>{price.Rating}</span>
-           <p>{price.Comment}</p>
-         </li>
-        );
-     })}
+
           </div>
         )}
 
-  {activeTab === "about" && (
-    <div id="about" style={{ display: activeTab === "about" ? "block" : "none" }}>
-       {about.map((about, index) => {
-        return (
-          <li key={index}>
-           <span>{about.About}</span>
-         </li>
-        );
-     })}
-      
-      </div>
-      )}
+        {activeTab === "rate" && (
+          <div id="rate" style={{ display: activeTab === "rate" ? "block" : "none" }}>
+            {price.map((price, index) => {
+              return (
+                <li key={index}>
+                  <span>{price.Rating}</span>
+                  <p>{price.Comment}</p>
+                </li>
+              );
+            })}
+          </div>
+        )}
+
+        {activeTab === "about" && (
+          <div id="about" style={{ display: activeTab === "about" ? "block" : "none" }}>
+            {about.map((about, index) => {
+              return (
+                <li key={index}>
+                  <span>{about.About}</span>
+                </li>
+              );
+            })}
+
+          </div>
+        )}
 
       </div>
 
       <div className={`${styles.flexboxItem} ${styles.flexboxItem1}`}>
         {/* Conditionally render the Calendar component */}
-        {showCalendar && 
-        <>
-        <div>
-          <table>
-            <tbody>
-              {hoursArray.map((hour) => (
-                <tr key={hour} onClick={() => handleHourClick(hour)}>
-                  <td>
-                    <button onClick={() => handleHourClick(hour)}>{`${hour}:00`}</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <Calendar onChange={onChange} onClickDay={a} value={value} />
-        </>
+        {showCalendar &&
+          <>
+            <div>
+              <table>
+                <tbody>
+                  {hoursArray.map((hour) => (
+                    <tr key={hour} onClick={() => handleHourClick(hour)}>
+                      <td>
+                        <button onClick={() => handleHourClick(hour)}>{`${hour}:00`}</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <Calendar onChange={onChange} onClickDay={a} value={value} />
+          </>
         }
       </div>
     </div>
