@@ -6,11 +6,15 @@ export async function POST(req, res) {
   const body = await req.json();
   const { username, password } = body;
 
-  const login_result = await login(username, password);
+  const prismaClient = new PrismaClient();
+
+  const login_result = await login(prismaClient, username, password);
   if (login_result) {
     console.log("-> Login successful");
     console.log("-> Token : " + login_result);
 
+    var token = generateToken(login_result);
+    await storeTokenInDatabase(prismaClient, token, login_result);
 
     const response = new Response(
       JSON.stringify({
@@ -21,6 +25,7 @@ export async function POST(req, res) {
       })
     );
     response.headers.set("content-type", "application/json");
+    response.headers.set("Authorization", "Bearer " + token);
 
     return response;
   } else {
@@ -34,23 +39,22 @@ export async function POST(req, res) {
         },
       })
     );
+
     response.headers.set("content-type", "application/json");
     return response;
   }
 }
 
-async function login(username, password) {
-  const prisma = new PrismaClient();
-  const user = await prisma.users.findFirst({
+async function login(prismaClient, username, password) {
+  const user = await prismaClient.users.findFirst({
     where: {
-      email: username,
-    },
+      username : username,
+    }
   });
-  console.log(user);
   if(!user) return null;
 
   const isValidPassword = await bcrypt.compare(password, user.passwordHash);
-  // if (!isValidPassword) return null;
+  if (!isValidPassword) return null;
 
   return user;
 }
@@ -68,35 +72,16 @@ function generateToken(user) {
   });
 }
 
-// async function login(username, password) {
-  
-//   const prisma = new PrismaClient();
-//   const user = await prisma.users.findFirst({
-//     where: {
-//       email: username,
-//     },
-//   });
+async function storeTokenInDatabase(prismaClient, token, user) {
+  const loginEntry = await prismaClient.login.create({
+    data: {
+      token: token,
+      expiryDate: new Date(Date.now() + 1000 * 60 * 60 * 24),
+      userID: user.id,
+      idToken: null,
+      accessToken: null
+    }
+  });
 
-//   if (!user) return "";
-
-//   const isValidPassword = await bcrypt.compare(password, user.passwordHash);
-//   if (!isValidPassword) return "";
-
-//   const token = generateToken(user);
-
-//   console.log("-> Logged in");
-//   return token
-// }
-
-// function generateToken(user) {
-//   console.log(user);
-
-//   const payload = {
-//     userId: user.id,
-//     username: user.username,
-//   };
-
-//   return jwt.sign(payload, "process.env.JWT_SECRET", {
-//     expiresIn: "1h",
-//   });
-// }
+  return loginEntry;
+}

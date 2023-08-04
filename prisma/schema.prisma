@@ -23,6 +23,31 @@ model clients {
   reviews           reviews[]
 }
 
+// model idTokens {
+//   id        Int      @id @default(autoincrement())
+//   token     String?  @db.VarChar(255)
+//   tokenInfo String?  @db.VarChar(1024)
+//   login     login[]
+// }
+
+// model accessTokens {
+//   id        Int      @id @default(autoincrement())
+//   token     String?  @db.VarChar(255)
+//   tokenInfo String?  @db.VarChar(1024)
+//   login     login[]
+// }
+
+model login {
+  token        String        @id @db.VarChar(255)
+  expiryDate   DateTime?
+  userID       Int?
+  idToken      Int?
+  accessToken  Int?
+  // idTokens     idTokens?     @relation(fields: [idToken], references: [id])
+  // accessTokens accessTokens? @relation(fields: [accessToken], references: [id])
+  // users        users?        @relation(fields: [userID], references: [id])
+}
+
 model consultant_availability {
   id           Int          @id(map: "PK__consulta__3213E83FA09BDABA") @default(autoincrement())
   consultantID Int?
@@ -191,16 +216,6 @@ model reviews {
   consultants  consultants? @relation(fields: [consultantID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__reviews__consult__1CBC4616")
 }
 
-model sysdiagrams {
-  name         String @db.NVarChar(128)
-  principal_id Int
-  diagram_id   Int    @id(map: "PK__sysdiagr__C2B05B61256D8B9C") @default(autoincrement())
-  version      Int?
-  definition   Bytes?
-
-  @@unique([principal_id, name], map: "UK_principal_name")
-}
-
 model users {
   id            Int             @id(map: "PK__users__3213E83F090AD4D6") @default(autoincrement())
   username      String?         @db.NVarChar(255)
@@ -213,4 +228,5 @@ model users {
   consultants   consultants[]
   notifications notifications[]
   profiles      profiles[]
+  // login         login[]
 }
