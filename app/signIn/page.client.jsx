@@ -2,16 +2,42 @@
 
 import styles from "../signIn/signIn.css";
 import { useState } from "react";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 export default function signIn() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(
-    "Please use your email and password to login."
+    "Please use your username and password to login."
   );
 
   const router = useRouter();
+
+  const handleGetConsultants = async (e) => {
+    e.preventDefault();
+
+    console.log("handleGetConsultants");
+
+    const response = await fetch("/api/consultants", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const { message, data } = await response.json();
+    console.log("Response Data:", JSON.stringify(data)); // it should not be stringify
+    console.log("Response Message:", JSON.stringify(message)); // it should not be stringify
+
+    if (response.headers.get("content-type")?.includes("application/json")) {
+      const data = response;
+      console.log(data);
+      setMessage(data.message);
+    } else console.warn("The response was not in JSON format.");
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -22,7 +48,7 @@ export default function signIn() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username: email,
+        username: username,
         password: password,
       }),
     });
@@ -30,26 +56,17 @@ export default function signIn() {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    const { data }= await response.json();
+    const { data } = await response.json();
     console.log("Response Data:", data.user);
-    if(data.user !== null){
-      console.log("Login successfull")
-      sessionStorage.setItem("user",JSON.stringify(data.user))
-      router.push('/')
-      return
+    if (data.user !== null) {
+      console.log("Login successfull");
+      sessionStorage.setItem("user", JSON.stringify(data.user));
+      router.push("/");
+      return;
+    } else {
+      console.log("Login not successful");
+      return;
     }
-    else{
-      console.log("Login not successfull")
-      return
-    }
-    
-    if (response.headers.get("content-type")?.includes("application/json")) {
-      const data = response;
-      console.log(data);
-      setMessage(data.message);
-      
-
-    } else console.warn("The response was not in JSON format.");
   };
 
   return (
@@ -60,13 +77,13 @@ export default function signIn() {
         <h2>Sign In</h2>
         <form onSubmit={handleLogin}>
           <div>
-            <label>Email:</label>
+            <label>Username:</label>
             <input
-              type="email"
-              id="email"
-              placeholder="Enter your Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              id="username"
+              placeholder="Enter your username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
           <div>
@@ -74,13 +91,15 @@ export default function signIn() {
             <input
               type="password"
               id="password"
-              placeholder="Enter your Password"
+              placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <button type="submit">Sign In</button>
         </form>
+
+        <button type="submit" onClick={handleGetConsultants}>Test GetConsultants</button>
 
         {message && <div className="message">{message}</div>}
       </div>

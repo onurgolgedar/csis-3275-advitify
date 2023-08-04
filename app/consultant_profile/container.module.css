@@ -1,41 +1,37 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  .flexboxItem{
-    display: flex;
-    margin: 10px;
-    border: 3px solid #1333;
-    background-color: #dfdfdf;
-    
-   
-  }
+.flexboxItem {
+  display: flex;
+  margin: 10px;
+  border: 3px solid #1333;
+  background-color: #dfdfdf;
+}
 
-  .flexboxItem1{
-    min-height: 100px;
-    
-    
-  }
+.flexboxItem1 {
+  min-height: 100px;
+}
 
-  .flexboxItem2{
-    min-height: 200px;
-  }
+.flexboxItem2 {
+  min-height: 200px;
+}
 
-  .flexboxItem3{
-    min-height: 300px;
-  }
+.flexboxItem3 {
+  min-height: 300px;
+}
 
-.dataTabContent{
+.dataTabContent {
   display: none;
 }
 
-.active.dataTabContent{
+.active.dataTabContent {
   display: block;
 }
 
-.tabs{
+.tabs {
   display: flex;
   justify-content: center;
   list-style-type: none;
@@ -44,13 +40,16 @@
   border-bottom: 1px solid black;
 }
 
-.tab{
-  cursor:pointer;
+.tab {
+  cursor: pointer;
   padding: 10px;
 }
-.tab.active{
+
+.tab.active {
   background-color: #ccc;
 }
-.tab:hover{
+
+.tab:hover {
   background-color: #AAA;
 }
+
