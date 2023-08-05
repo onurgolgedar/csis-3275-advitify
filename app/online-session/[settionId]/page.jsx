@@ -1,6 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import styles from "../online-session.module.css"
+import { useRouter } from "next/navigation";
 
 const demoUser = {
   name: "test user",
@@ -17,22 +18,28 @@ const meetingObject = {
 
 export default function ZoomMeetingComponentView({ searchParams }) {
   const { zak } = searchParams;
-
+  const router = useRouter();
   useEffect(() => {
-
-    initZoomApp(zak);
+    const session = sessionStorage.getItem("user");
+    if(session) {
+      const user = JSON.parse(session);
+      console.log(user);
+      initZoomApp(zak, user);
+    } else {
+      router.push("/");
+      window.alert("access failed")
+    }
   }, [zak]);
 
   return (
     <div className={styles.container}>
-      <div id="meetingSDKElement">ZOOM HERE</div>
+      <div id="meetingSDKElement">Initializing meeting ...</div>
     </div>
   );
 }
 
-async function initZoomApp(zak) {
-  const user = sessionStorage.getItem("user");
-  console.log(user);
+async function initZoomApp(zak, user) {
+  
   // initialize client
   const { client, clientConf } = await initClient(zak, user);
 
@@ -55,9 +62,9 @@ async function initClient(zak, user) {
     signature: "",
     meetingNumber: meetingObject.zoomRoomNumber, // actual meeting number: user need to input
     passWord: meetingObject.zoomRoomPassword, // actual password for the meeting: user need to input
-    role: demoUser.userType === "client" ? 0 : 1, // 0 implies client, 1 implies host
-    userName: demoUser.name, // username: user need to input
-    userEmail: demoUser.email, // user email: user need to input
+    role: user?.data?.userInfo?.userType == "2" ? 0 : 1, // 0 implies client, 1 implies host
+    userName: user?.data?.userInfo?.username, // username: user need to input
+    userEmail: user?.data?.userInfo?.email, // user email: user need to input
     zak: zak, // to start a meeting, the host's zak token is required
   };
 
