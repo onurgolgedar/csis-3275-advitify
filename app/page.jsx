@@ -28,7 +28,7 @@ const handleGetConsultants = async (e) => {
 };
 
 export default function Home() {
-  const { user } = useUser();
+  const user = useUser();
   globalThis.test = "test";
   return (
     <main>
