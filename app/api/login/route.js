@@ -4,23 +4,29 @@ import jwt from "jsonwebtoken";
 import { CreateResponse } from "../../../util/util.js";
 
 export async function POST(req, res) {
-  const body = await req.json();
-  const { username, password } = body;
+  try {
+    const body = await req.json();
+    const { username, password } = body;
 
-  const prismaClient = new PrismaClient();
+    const prismaClient = new PrismaClient();
 
-  const userInfo = await login(prismaClient, username, password);
-  if (userInfo) {
-    console.log("-> Login successful");
-    console.log("-> Token : " + userInfo);
+    const userInfo = await login(prismaClient, username, password);
+    if (userInfo) {
+      console.log("-> Login successful");
+      console.log("-> Token : " + userInfo);
 
-    var token = generateToken(userInfo);
-    await storeTokenInDatabase(prismaClient, token, userInfo);
+      var token = generateToken(userInfo);
+      await storeTokenInDatabase(prismaClient, token, userInfo);
 
-    return CreateResponse(true, { token: token, userInfo: userInfo }, "You have logged in successfully.");
-  } else {
-    console.log("-> Login failed");
-    return CreateResponse(true, null, "Given credentials were invalid.");
+      return CreateResponse(true, { token: token, userInfo: userInfo }, "You have logged in successfully.");
+    } else {
+      console.log("-> Login failed");
+      return CreateResponse(false, null, "Given credentials were invalid.");
+    }
+  }
+  catch (e) {
+    console.log("Error -> " + e);
+    return CreateResponse(false, null, e);
   }
 }
 
