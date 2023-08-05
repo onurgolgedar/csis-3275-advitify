@@ -5,18 +5,14 @@ import Calendar from "react-calendar";
 import "./customCarendar_profile.css";
 import { useState } from "react";
 import Link from "next/link";
-import { useUser } from "../../components/useUser";
 
 export default function Consultant({ params }) {
-  const user = useUser();
   const { consultantId } = params;
   const consultant = consultantId <= 5 ? consultants[consultantId] : consultants[0]
   const [date, setDate] = useState(new Date());
   const [activeTab, setActiveTab] = useState("schedule");
   const [value, onChange] = useState(new Date());
   const timeTable = Array(14).fill(0);
-
-
 
   return (
     <div className={styles.wrapper}>
