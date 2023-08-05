@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const handleGetConsultants = async (user) => {
+const handleGetConsultants = async (user, setConsultants) => {
   const response = await fetch("/api/consultants", {
     method: "GET",
     headers: {
@@ -14,8 +14,8 @@ const handleGetConsultants = async (user) => {
 
   if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
-  const data = response;
-  consultants = [];
+  const data = await response.json();
+  const consultants = [];
   data.forEach((element) => {
     consultants.push({
       id: element.userID,
@@ -25,10 +25,12 @@ const handleGetConsultants = async (user) => {
       export: "Software",
     });
   });
+  setConsultants(consultants);
 };
 
 export default function Home() {
   const [user, setUser] = useState({ user: null });
+  const [consultants, setConsultants] = useState([]);
   useEffect(() => {
     const session = sessionStorage.getItem("user");
     if (session) setUser(JSON.parse(session));
@@ -50,7 +52,7 @@ export default function Home() {
         defer
       ></script>
       <section id="hero" className="bg-body-tertiary pt-5">
-        <button type="submit" onClick={() => handleGetConsultants(user)}>
+        <button type="submit" onClick={() => handleGetConsultants(user, setConsultants)}>
           Test GetConsultants
         </button>
         <div className="container bg-body-tertiary">
