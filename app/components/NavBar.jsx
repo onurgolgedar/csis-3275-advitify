@@ -13,8 +13,8 @@ const logoFont = Abhaya_Libre({
 });
 
 export default function NavBar() {
-  const { user } = useUser();
-  if(!user) return;
+  const user = JSON.parse(sessionStorage.getItem("user"));
+  console.log(user);
   const router = useRouter();
   async function navigateTo() {
     if (user !== undefined) {
@@ -35,7 +35,7 @@ export default function NavBar() {
         </div>
         <ul className={styles.links}>
           {
-            user?.data.token
+            user
               ?
               <></>
               :
