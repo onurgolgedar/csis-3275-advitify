@@ -51,7 +51,7 @@ export async function api_fetch(endpoint, user = null, isLoginRequired = false) 
   if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
   if (isLoginRequired && user?.data?.token == null) {
-    window.alert("You need to login");
+    window.alert("You need to login.");
   }
 
   return await response.json();
@@ -59,6 +59,6 @@ export async function api_fetch(endpoint, user = null, isLoginRequired = false) 
 
 export async function checkLogin(req) {
   if (!validateToken(extractToken(req)))
-    return createResponse(false, "You are not logged in.");
+    return createResponse(false, "You need to login.");
   else return true;
 }

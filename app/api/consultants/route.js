@@ -5,7 +5,9 @@ export async function GET(req, res) {
   const prisma = new PrismaClient();
 
   try {
-    const loggedIn = checkLogin(req);
+    console.log("1 - " + req);
+    const loggedIn = await checkLogin(req);
+    console.log("2 - " + loggedIn);
     if (loggedIn != true) return loggedIn;
 
     const consultantsResult = (
