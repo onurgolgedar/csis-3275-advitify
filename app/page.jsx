@@ -121,7 +121,7 @@ export default function Home() {
                   return (
                     <li key={index} className="nav-item">
                       <Link
-                        href={`/${category.name}`}
+                        href={`/search?category=${category.name}`}
                         className="nav-link align-middle px-0"
                       >
                         <span className="ms-1 d-none d-sm-inline">
@@ -189,7 +189,7 @@ export default function Home() {
                 return (
                   <div key={index} className="col">
                     <Link
-                      href={`categories/${category.name}`}
+                      href={`/search?category=${category.name}`}
                       className="text-decoration-none"
                     >
                       <div className="card mb-4">

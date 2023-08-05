@@ -42,7 +42,6 @@ export async function POST(req, res) {
       // // Redirect the user to the authorization URL
       // console.log(authorizationUrl);
 
-
       return createResponse(
         true,
         { token: token, userInfo: userInfo },
