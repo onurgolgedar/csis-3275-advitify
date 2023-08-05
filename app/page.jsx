@@ -27,7 +27,6 @@ const handleGetConsultants = async (e) => {
   } else console.warn("The response was not in JSON format.");
 };
 
-
 export default function Home() {
   const { user } = useUser();
   globalThis.test = "test";
