@@ -6,9 +6,6 @@ import { api_fetch } from "../util/util";
 
 const handleGetConsultants = async (user, setConsultants) => {
   const result = await api_fetch("consultants", user);
-
-  console.log(result.data);
-  
   const consultants = result.data;
   setConsultants(consultants);
 };
@@ -20,6 +17,7 @@ export default function Home() {
     const session = sessionStorage.getItem("user");
     if (session) setUser(JSON.parse(session));
     else setUser(null);
+    handleGetConsultants(user, setConsultants);
   }, []);
 
   return (
@@ -37,12 +35,6 @@ export default function Home() {
         defer
       ></script>
       <section id="hero" className="bg-body-tertiary pt-5">
-        <button
-          type="submit"
-          onClick={() => handleGetConsultants(user, setConsultants)}
-        >
-          Test GetConsultants
-        </button>
         <div className="container bg-body-tertiary">
           <div className="row">
             <div

@@ -32,13 +32,13 @@ export default function SignIn() {
 
     const data = await response.json();
 
-    if (data !== null) {
+    if (data.success) {
       sessionStorage.setItem("user", JSON.stringify(data))
       setUser(data);
       router.push("/");
       return;
     } else {
-      console.log("Login not successful");
+      window.alert("Login failed");
       return;
     }
   };
