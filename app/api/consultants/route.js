@@ -5,6 +5,9 @@ export async function GET(req, res) {
   const prisma = new PrismaClient();
 
   try {
+    const loggedIn = checkLogin(req);
+    if (loggedIn != true) return loggedIn;
+
     const consultantsResult = (
       await prisma.users.findMany({
         include: {
