@@ -12,7 +12,7 @@ export default function SignIn() {
     "Please use your username and password to login."
   );
   const { user, setUser } = useUser();
-  console.log(user);
+  
   const router = useRouter();
 
 

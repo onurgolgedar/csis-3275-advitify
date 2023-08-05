@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 
 
 export function useUser() {
-  const user = useContext(UserContext);
+  const {user, setUser} = useContext(UserContext);
 
   if (user) {
     const token = user.user?.data.token;
@@ -18,8 +18,8 @@ export function useUser() {
     // if(decoded) return user;
     // else return null;
     if (token == null)
-      return null;
+      return {user: undefined, setUser: setUser};
   }
 
-  return user;
+  return {user: undefined, setUser: setUser};
 }

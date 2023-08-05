@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image";
 import Link from "next/link";
-import { useUser } from "./components/useUser";
+import { useEffect, useState } from "react";
 
 const handleGetConsultants = async (e) => {
   console.log(user.data.token);
@@ -19,7 +19,7 @@ const handleGetConsultants = async (e) => {
   if (!response.ok) {
     throw new Error(`HTTP error! Status: ${response.status}`);
   }
-  
+
   if (response.headers.get("content-type")?.includes("application/json")) {
     const data = response;
     console.log(data);
@@ -28,8 +28,13 @@ const handleGetConsultants = async (e) => {
 };
 
 export default function Home() {
-  const user = useUser();
-  globalThis.test = "test";
+  const [user, setUser] = useState({ user: null });
+  useEffect(() => {
+    const session = sessionStorage.getItem("user");
+    if (session) setUser(JSON.parse(session))
+    else setUser(null);
+  }, [])
+  
   return (
     <main>
       <link
