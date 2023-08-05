@@ -1,11 +1,15 @@
 "use client"
+import { useRouter } from "next/navigation";
 import { useUser } from "../components/useUser";
 import Admin from "./clients/page";
 
-export default function Default() {
-  const user = useUser();
 
+export default function Default() {
+  const router = useRouter();
+  const user = useUser();
+  console.log(user);
+  if(!user.user) return router.push("/");
   return (
-    <Admin />
+    user.user ? <Admin /> : <></>
   )
 }

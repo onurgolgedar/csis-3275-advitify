@@ -3,9 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const handleGetConsultants = async (e) => {
+const handleGetConsultants = async (user) => {
   console.log(user.data.token);
-  e.preventDefault();
 
   console.log("handleGetConsultants");
   const response = await fetch("/api/consultants", {
@@ -50,7 +49,7 @@ export default function Home() {
         defer
       ></script>
       <section id="hero" className="bg-body-tertiary pt-5">
-      <button type="submit" onClick={handleGetConsultants}>Test GetConsultants</button>
+      <button type="submit" onClick={() => handleGetConsultants(user)}>Test GetConsultants</button>
         <div className="container bg-body-tertiary">
           <div className="row">
             <div className="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="fade-up" >
