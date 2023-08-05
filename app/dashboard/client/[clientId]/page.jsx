@@ -55,7 +55,7 @@ export default function ClientDashboard({ params }) {
           </section>
           <div className={`${styles.flexCol} ${styles.grow4}`}>
             <section className={styles.section}>
-              <h3>progress</h3>
+              <h3>Progress</h3>
               <ul className={styles.progressList}>
                 {
                   progresses.map((progress, index) => {
