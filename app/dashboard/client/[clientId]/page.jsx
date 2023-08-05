@@ -38,7 +38,7 @@ export default function ClientDashboard({ params }) {
           <section className={`${styles.section} ${styles.grow6}`}>
             <h3>Schedule</h3>
             <div>
-              <Calendar onChange={onChange} onClickDay={(e) => console.log(e)} />
+              <Calendar onChange={onChange} onClickDay={(e) => "clicked: " + e} />
             </div>
           </section>
           <div className={`${styles.flexCol} ${styles.grow4}`}>

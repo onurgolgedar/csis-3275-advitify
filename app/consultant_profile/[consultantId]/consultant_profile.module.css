@@ -87,12 +87,14 @@
   font-weight: 800;
 }
 
-.body {
+.schedule {
   padding: 24px;
 }
 
-.schedule {
+.availability {
   width: 50%;
+  max-height: 500px;
+  overflow-y: scroll;
 }
 
 .days {
@@ -100,9 +102,47 @@
 }
 
 .day {
-
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  height: 60px;
+  border-bottom: solid #000000 1px;
 }
 
+.time {
+  width: 80px;
+  padding-left: 16px;
+}
+
+.book {
+  color: #3b82f6;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+}
 .calendar {
   width: 50%;
+}
+
+.rates {
+  list-style: none;
+  padding: 24px 48px;
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+.rate {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-bottom: solid #000000 1px;
+  margin: 12px 0;
+}
+
+.about {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px 48px;
+  max-height: 500px;
+  overflow-y: scroll;
 }

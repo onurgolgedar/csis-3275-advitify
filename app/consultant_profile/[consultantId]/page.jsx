@@ -1,37 +1,22 @@
 "use client";
-import styles from "./container.module.css";
-import data from "./test.json";
+import styles from "./consultant_profile.module.css";
 import Image from "next/image";
 import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+import "./customCarendar_profile.css";
 import { useState } from "react";
-
-const price = [
-  {
-    Rating: "5/5",
-    Comment: "Best consultant out there"
-  },
-  {
-    Rating: "5/5",
-    Comment: "Best consultant out there"
-  },
-  {
-    Rating: "5/5",
-    Comment: "Best consultant out there"
-  },
-]
-
-
+import Link from "next/link";
+import { useUser } from "../../components/useUser";
 
 export default function Consultant({ params }) {
+  const user = useUser();
   const { consultantId } = params;
   const consultant = consultantId <= 5 ? consultants[consultantId] : consultants[0]
+  const [date, setDate] = useState(new Date());
   const [activeTab, setActiveTab] = useState("schedule");
-
   const [value, onChange] = useState(new Date());
-  // const [selectedHour, setSelectedHour] = useState(null);
-
   const timeTable = Array(14).fill(0);
+
+
 
   return (
     <div className={styles.wrapper}>
@@ -71,33 +56,86 @@ export default function Consultant({ params }) {
         <section className={styles.details}>
           <div className={styles.tabContainer}>
             <div className={styles.tabs}>
-              <button className={`${styles.tab} ${styles.active}`}>Schedule</button>
-              <button className={styles.tab}>Rate</button>
-              <button className={styles.tab}>About</button>
+              <button
+                className={`${styles.tab} ${activeTab === "schedule" ? styles.active : ""}`}
+                onClick={() => setActiveTab("schedule")}>
+                Schedule
+              </button>
+              <button
+                className={`${styles.tab} ${activeTab === "rate" ? styles.active : ""}`}
+                onClick={() => setActiveTab("rate")}>
+                Rate
+              </button>
+              <button
+                className={`${styles.tab} ${activeTab === "about" ? styles.active : ""}`}
+                onClick={() => setActiveTab("about")}>
+                About
+              </button>
             </div>
           </div>
-          <div className={`${styles.flex} ${styles.body}`}>
-            <div className={styles.schedule}>
-              schedule
-              <ul className={styles.days}>
-                {
-                  timeTable.map((el, index) => {
-                    return (
-                      <li key={index} className={styles.day}>{index+8}</li>
-                    )
-                  })
-                }
-              </ul>
-            </div>
-            <div className={styles.Calendar}>
-              <Calendar onChange={onChange}></Calendar>
-            </div>
-          </div>
+          {
+            activeTab === "schedule"
+              ?
+              <div className={`${styles.flex} ${styles.schedule}`}>
+                <div className={styles.availability}>
+                  <h2>{date.toDateString()}</h2>
+                  <ul className={styles.days}>
+                    <li className={styles.day}>
+                      <span className={styles.time}>time</span>
+                      <p>Availability</p>
+                    </li>
+                    {
+                      timeTable.map((el, index) => {
+                        const time = index + 8;
+                        return (
+                          <li key={index} className={styles.day}>
+                            <span className={styles.time}>{time < 12 ? time + " AM" : time === 12 ? time + "PM" : time - 12 + "PM"}</span>
+                            <Link className={styles.book} href={"/api/zoom/oauth/auth"}>Available</Link>
+                          </li>
+                        )
+                      })
+                    }
+                  </ul>
+                </div>
+                <div id="profile" className={styles.calendar}>
+                  <Calendar onChange={onChange} onClickDay={(e) => setDate(e)}></Calendar>
+                </div>
+              </div>
+              :
+              activeTab === "rate"
+                ?
+                <ul className={styles.rates}>
+                  {
+                    Array(100).fill(0).map((el, index) => {
+                      const rate = Math.floor(Math.random() * 10) % 5;
+                      return (
+                        <li key={index} className={styles.rate}>
+                          <div className={styles.flex}>
+                            <p><b>Name</b>: client name{index}</p>
+                            <p><b>Rate</b>: {rate}</p>
+                          </div>
+                          <p><b>Comment</b>: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Velit scelerisque in dictum non consectetur a erat nam at.</p>
+                        </li>
+                      )
+                    })
+                  }
+                </ul>
+                :
+                <div className={styles.about}>
+                  <p><b>Tel</b>: xxx-xxxx-xxxx</p>
+                  <p><b>Email</b>: consultant@advitify.com</p>
+                  <div>
+                    <p><b>About</b></p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Velit scelerisque in dictum non consectetur a erat nam at. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Velit scelerisque in dictum non consectetur a erat nam at. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Velit scelerisque in dictum non consectetur a erat nam at.</p>
+                  </div>
+                </div>
+          }
         </section>
       </div>
     </div>
   );
 }
+
 
 
 

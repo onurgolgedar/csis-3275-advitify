@@ -120,11 +120,7 @@ const navigationCategories = [
       {
         content: "Become a consultant",
         path: "signUpConsultant"
-      },
-      {
-        content: "Admin",
-        path: "admin"
-      },
+      }
     ],
   },
   {

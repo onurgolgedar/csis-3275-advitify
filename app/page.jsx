@@ -145,7 +145,7 @@ export default function Home() {
               </p>
             </div>
             <div className="row row-cols-1 row-cols-md-3 text-center">
-              {consultants.map((consultant, index) => {
+              {consultants?.map((consultant, index) => {
                 return (
                   <div key={index} className="col">
                     <Link

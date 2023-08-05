@@ -41,7 +41,6 @@ export default function AddClientWindow({ param }) {
     //   },
     //   body: JSON.stringify(input)
     // });
-    console.log(input);
   }
 
   return (

@@ -17,9 +17,9 @@ const meetingObject = {
 
 export default function ZoomMeetingComponentView({ searchParams }) {
   const { zak } = searchParams;
-
+  const user = sessionStorage.getItem("user");
   useEffect(() => {
-    initZoomApp(zak);
+    initZoomApp(zak, user);
   }, [zak]);
 
   return (
@@ -29,15 +29,15 @@ export default function ZoomMeetingComponentView({ searchParams }) {
   );
 }
 
-async function initZoomApp(zak) {
+async function initZoomApp(zak, user) {
   // initialize client
-  const { client, clientConf } = await initClient(zak);
+  const { client, clientConf } = await initClient(zak, user);
 
   // start meeting
   startMeeting(client, clientConf);
 }
 
-async function initClient(zak) {
+async function initClient(zak, user) {
   const ZoomMtgEmbedded = await (
     await import("@zoomus/websdk/embedded")
   ).default;
