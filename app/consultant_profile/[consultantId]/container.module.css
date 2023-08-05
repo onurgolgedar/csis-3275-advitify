@@ -90,3 +90,11 @@
 .body {
   padding: 24px;
 }
+
+.schedule {
+  width: 50%;
+}
+
+.calendar {
+  width: 50%;
+}

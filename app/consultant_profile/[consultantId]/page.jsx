@@ -22,12 +22,6 @@ const price = [
 ]
 
 
-const about = [
-  {
-    About: "Working with this professional was an absolute pleasure!"
-  }
-
-]
 
 export default function Consultant({ params }) {
   const { consultantId } = params;
@@ -36,6 +30,8 @@ export default function Consultant({ params }) {
 
   const [value, onChange] = useState(new Date());
   // const [selectedHour, setSelectedHour] = useState(null);
+
+
 
   return (
     <div className={styles.wrapper}>
