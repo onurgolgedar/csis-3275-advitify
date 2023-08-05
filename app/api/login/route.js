@@ -8,19 +8,20 @@ export async function POST(req, res) {
 
   const prismaClient = new PrismaClient();
 
-  const login_result = await login(prismaClient, username, password);
-  if (login_result) {
+  const userInfo = await login(prismaClient, username, password);
+  if (userInfo) {
     console.log("-> Login successful");
-    console.log("-> Token : " + login_result);
+    console.log("-> Token : " + userInfo);
 
-    var token = generateToken(login_result);
-    await storeTokenInDatabase(prismaClient, token, login_result);
+    var token = generateToken(userInfo);
+    await storeTokenInDatabase(prismaClient, token, userInfo);
 
     const response = new Response(
       JSON.stringify({
         data: {
+          success: true,
           message: "You have logged in successfully.",
-          user: login_result
+          user: userInfo,
         },
       })
     );
@@ -35,7 +36,7 @@ export async function POST(req, res) {
       JSON.stringify({
         data: {
           message: "Given credentials were invalid.",
-          user: null
+          user: null,
         },
       })
     );
@@ -48,10 +49,10 @@ export async function POST(req, res) {
 async function login(prismaClient, username, password) {
   const user = await prismaClient.users.findFirst({
     where: {
-      username : username,
-    }
+      username: username,
+    },
   });
-  if(!user) return null;
+  if (!user) return null;
 
   const isValidPassword = await bcrypt.compare(password, user.passwordHash);
   if (!isValidPassword) return null;
@@ -79,8 +80,8 @@ async function storeTokenInDatabase(prismaClient, token, user) {
       expiryDate: new Date(Date.now() + 1000 * 60 * 60 * 24),
       userID: user.id,
       idToken: null,
-      accessToken: null
-    }
+      accessToken: null,
+    },
   });
 
   return loginEntry;
