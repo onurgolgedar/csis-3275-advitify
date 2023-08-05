@@ -1,19 +1,18 @@
 import { PrismaClient } from "@prisma/client";
+import { CreateResponse } from "../../../util/util.js";
 
 export async function GET(req, res) {
-  var token = extractToken(req);
-  if (!validateToken(token)) return new Response(JSON.stringify({
-    data: {
-      message: "You are not logged in.",
-    },
-  }));
+  // var token = extractToken(req);
+  // if (!validateToken(token)) return new Response(JSON.stringify({
+  //   data: {
+  //     message: "You are not logged in.",
+  //   },
+  // }));
 
   const prisma = new PrismaClient();
   const consultants = await prisma.consultants.findMany();
-  const response = new Response(JSON.stringify({ data: consultants }));
-  console.group();
-  console.log('success');
-  console.groupEnd()
+
+  const response = CreateResponse(true, consultants);
   return response;
 }
 
@@ -29,7 +28,6 @@ function extractToken(req) {
 }
 
 async function validateToken(token) {
-
   const prisma = new PrismaClient();
   if (!token) return false;
 
