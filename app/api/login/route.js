@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { CreateResponse } from "../../../util/util.js";
 
 export async function POST(req, res) {
   const body = await req.json();
@@ -16,33 +17,10 @@ export async function POST(req, res) {
     var token = generateToken(userInfo);
     await storeTokenInDatabase(prismaClient, token, userInfo);
 
-    const response = new Response(
-      JSON.stringify({
-        data: {
-          success: true,
-          message: "You have logged in successfully.",
-          user: userInfo,
-        },
-      })
-    );
-    response.headers.set("content-type", "application/json");
-    response.headers.set("Authorization", "Bearer " + token);
-
-    return response;
+    return CreateResponse(true, { token: token, userInfo: userInfo }, "You have logged in successfully.");
   } else {
     console.log("-> Login failed");
-
-    const response = new Response(
-      JSON.stringify({
-        data: {
-          message: "Given credentials were invalid.",
-          user: null,
-        },
-      })
-    );
-
-    response.headers.set("content-type", "application/json");
-    return response;
+    return CreateResponse(true, null, "Given credentials were invalid.");
   }
 }
 
