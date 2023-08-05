@@ -12,7 +12,7 @@ export default function SignIn() {
     "Please use your username and password to login."
   );
   const { user, setUser } = useUser();
-
+console.log(user);
   const router = useRouter();
 
   const handleGetConsultants = async (e) => {
@@ -56,10 +56,10 @@ export default function SignIn() {
       }),
     });
 
-    console.log(response);
-    const { data } = await response.json();
-    console.log("Response Data:", data.user);
-    if (data.user !== null) {
+    const data = await response.json();
+    console.log(data);
+    console.log("Response Data:", data);
+    if (data !== null) {
       console.log("Login successfull");
       setUser(data);
       router.push("/");
