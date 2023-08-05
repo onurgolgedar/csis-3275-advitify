@@ -14,12 +14,11 @@ const logoFont = Abhaya_Libre({
 });
 
 export default function NavBar() {
-  const [user, setUser] = useState({user: null});
+  const [user, setUser] = useState({ user: null });
   useEffect(() => {
     const session = sessionStorage.getItem("user");
     if (session) setUser(JSON.parse(session))
     else setUser(null);
-
   }, [])
 
   const router = useRouter();
