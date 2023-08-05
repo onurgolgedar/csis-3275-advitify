@@ -18,7 +18,7 @@ export default function ClientDashboard({ params }) {
       const userData = JSON.parse(session)
       setUser(userData);
     } else {
-      router.push("");
+      router.push("/");
     }
   }, [])
 
