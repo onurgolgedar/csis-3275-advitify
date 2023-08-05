@@ -1,10 +1,14 @@
 import { PrismaClient } from "@prisma/client";
-import { createResponse } from "../../../util/util.js";
+import { createResponse, checkLogin } from "../../../util/util.js";
 
 export async function POST(req, res) {
   const prisma = new PrismaClient();
 
   try {
+    const checkLogin = checkLogin(req);
+    if (checkLogin != true)
+      return checkLogin;
+
     const { username, email, password } = await req.json();
 
     const newUser = await prisma.users.create({

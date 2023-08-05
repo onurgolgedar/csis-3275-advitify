@@ -38,3 +38,10 @@ export async function validateToken(token) {
 
   return true;
 }
+
+export async function CheckLogin(req) {
+    if (!validateToken(extractToken(req)))
+        return createResponse(false, "You are not logged in.");
+    else
+        return true;
+}

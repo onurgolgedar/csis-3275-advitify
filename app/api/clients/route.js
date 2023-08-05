@@ -1,17 +1,24 @@
 import { PrismaClient } from "@prisma/client";
 import {
   createResponse,
-  extractToken,
-  validateToken,
+  checkLogin
 } from "../../../util/util.js";
 
 export async function GET(req, res) {
-  // var token = extractToken(req);
-  // if (!validateToken(token)) createResponse(false, "You are not logged in.");
-
   const prisma = new PrismaClient();
-  const clients = await prisma.clients.findMany();
 
-  const response = createResponse(true, clients);
-  return response;
+  try {
+    const checkLogin = checkLogin(req);
+    if (checkLogin != true)
+      return checkLogin;
+
+    const clients = await prisma.clients.findMany();
+    return createResponse(true, clients);
+  } catch (e) {
+    console.log("-> Request failed");
+    return createResponse(false, null, e);
+  } finally {
+    prisma.$disconnect();
+  }
+
 }
