@@ -1,5 +1,6 @@
 "use client";
 import { useEffect } from "react";
+import styles from "../online-session.module.css"
 
 const demoUser = {
   name: "test user",
@@ -22,7 +23,7 @@ export default function ZoomMeetingComponentView({ searchParams }) {
   }, [zak]);
 
   return (
-    <div>
+    <div className={styles.container}>
       <div id="meetingSDKElement">ZOOM HERE</div>
     </div>
   );
@@ -86,11 +87,11 @@ async function initClient(zak) {
         isResizable: true,
         viewSizes: {
           default: {
-            width: 1000,
-            height: 800,
+            width: 800,
+            height: 550,
           },
           ribbon: {
-            width: 200,
+            width: 400,
           },
         },
       },

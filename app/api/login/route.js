@@ -25,17 +25,17 @@ export async function POST(req, res) {
 }
 
 async function login(prismaClient, username, password) {
-  const user = await prismaClient.users.findFirst({
-    where: {
-      username: username,
-    },
-  });
-  if (!user) return null;
+    const user = await prismaClient.users.findFirst({
+      where: {
+        username: username,
+      },
+    });
+    if (!user) return null;
 
-  const isValidPassword = await bcrypt.compare(password, user.passwordHash);
-  if (!isValidPassword) return null;
+    const isValidPassword = await bcrypt.compare(password, user.passwordHash);
+    if (!isValidPassword) return null;
 
-  return user;
+    return user;
 }
 
 function generateToken(user) {

@@ -1,109 +1,11 @@
+"use client"
 import Image from "next/image";
 import Link from "next/link";
+import { useUser } from "./components/useUser";
 
 export default function Home() {
-
-  const consultants = [
-    {
-      id: 0,
-      name: "Amelia Thompson",
-      imgUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
-      description: "Amelia excels at comprehending, designing, and overseeing software projects in various languages.",
-      export: "Software"
-    },
-    {
-      id: 1,
-      name: "Benjamin Smith",
-      imgUrl: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
-      description: "Benjamin is skilled in identifying cybersecurity risks and implementing protective measures.",
-      export: "Cybersecurity"
-    },
-    {
-      id: 2,
-      name: "Charlotte Davis",
-      imgUrl: "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=389&q=80",
-      description: "Charlotte adeptly deploys and manages cloud-based solutions using diverse platforms.",
-      export: "Cloud computing"
-    },
-    {
-      id: 3,
-      name: "Daniel Wilson",
-      imgUrl: "https://images.unsplash.com/photo-1531384441138-2736e62e0919?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
-      description: "Daniel expertly manages and secures vast data volumes with his database system and modeling knowledge.",
-      export: "Database"
-    },
-    {
-      id: 4,
-      name: "Elizabeth Anderson",
-      imgUrl: "https://images.unsplash.com/photo-1607990283143-e81e7a2c9349?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1682&q=80",
-      description: "Elizabeth excels at improving satisfaction with her superior communication and problem-solving skills.",
-      export: "Customers"
-    },
-  ]
-
-  const categories = [
-    {
-      name: "Software",
-      description: "Design and maintenance of computer programs for specific tasks.",
-      numberOfConsultants: Math.floor((Math.random() / 10) * 1000),
-      imgUrl: "https://images.unsplash.com/photo-1604403428907-673e7f4cd341?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=871&q=80"
-    },
-    {
-      name: "Cybersecurity",
-      description: "Protection of internet-connected systems from digital threats.",
-      numberOfConsultants: Math.floor((Math.random() / 10) * 1000),
-      imgUrl: "https://images.unsplash.com/photo-1562408590-e32931084e23?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
-    },
-    {
-      name: "Cloud computing",
-      description: "Delivery of internet-based services like storage, databases, and software.",
-      numberOfConsultants: Math.floor((Math.random() / 10) * 1000),
-      imgUrl: "https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
-    },
-    {
-      name: "Database",
-      description: "Management and organization of structured sets of data.",
-      numberOfConsultants: Math.floor((Math.random() / 10) * 1000),
-      imgUrl: "https://images.unsplash.com/photo-1633412802994-5c058f151b66?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1160&q=80"
-    },
-    {
-      name: "Customers",
-      description: "Understanding and satisfying the needs of product or service users.",
-      numberOfConsultants: Math.floor((Math.random() / 10) * 1000),
-      imgUrl: "https://images.unsplash.com/photo-1581093805071-a04e696db334?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
-    },
-    {
-      name: "Automation",
-      description: "Use of systems to control industrial processes, reducing human intervention.",
-      numberOfConsultants: Math.floor((Math.random() / 10) * 1000),
-      imgUrl: "https://images.unsplash.com/photo-1567789884554-0b844b597180?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
-    },
-    {
-      name: "Artificial intelligence",
-      description: "Creation of machines that mimic human intelligence.",
-      numberOfConsultants: Math.floor((Math.random() / 10) * 1000),
-      imgUrl: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=930&q=80"
-    },
-    {
-      name: "Computing",
-      description: "Study and application of algorithms, hardware, software, and networks.",
-      numberOfConsultants: Math.floor((Math.random() / 10) * 1000),
-      imgUrl: "https://images.unsplash.com/photo-1617839625591-e5a789593135?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2680&q=80"
-    },
-    {
-      name: "Data visualization",
-      description: "Graphical representation of data to make it easily understandable.",
-      numberOfConsultants: Math.floor((Math.random() / 10) * 1000),
-      imgUrl: "https://images.unsplash.com/photo-1584291527935-456e8e2dd734?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1450&q=80"
-    },
-    {
-      name: "Embedded systems",
-      description: "Design of dedicated computer systems for specific functi",
-      numberOfConsultants: Math.floor((Math.random() / 10) * 1000),
-      imgUrl: "https://images.unsplash.com/photo-1689535090070-647b1b194631?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
-    }
-  ]
-
+  const { user } = useUser();
+  globalThis.test = "test";
   return (
     <main>
       <link
@@ -137,10 +39,17 @@ export default function Home() {
                           Advitify gives you the ability to find the correct
                           professional from the comfort of your office
                         </h6>
-                        <Link href="/signIn" className="btn-get-started">Get Started</Link>
+                        {user ? <></> : <Link href="/signIn" className="btn-get-started">Get Started</Link>}
                       </div>
                       <div className="col-sm col-md-auto">
-                        <Image width={120} height={164} src="/main_image2.png" className="img-fluid" alt="" />
+                        <Image
+                          width={120}
+                          height={164}
+                          src="/main_image2.png"
+                          className="img-fluid"
+                          alt=""
+                          style={{ objectFit: "cover", width: "100%", height: "100%", maxHeight: "164px" }}
+                        />
                       </div>
                     </div>
                   </div>
@@ -148,7 +57,13 @@ export default function Home() {
               </div>
             </div>
             <div className="col-lg-6 order-1 order-lg-2 hero-img" data-aos="fade-left" >
-              <Image width={410} height={312} src="/main_image1.png" className="img-fluid" alt="" />
+              <Image
+                width={410}
+                height={312}
+                src="/main_image1.png"
+                className="img-fluid"
+                alt=""
+              />
             </div>
           </div>
         </div>
@@ -187,7 +102,7 @@ export default function Home() {
                 consultants.map((consultant, index) => {
                   return (
                     <div key={index} className="col">
-                      <Link href={`/consultant_profile/${consultant.id}`}>
+                      <Link href={`/consultant_profile/${consultant.id}`} className="text-decoration-none">
                         <div className="card mb-4">
                           <Image
                             className="card-img-top"
@@ -195,7 +110,7 @@ export default function Home() {
                             width={200}
                             height={300}
                             alt={consultant.name}
-                            style={{ objectFit: "cover" }}
+                            style={{ objectFit: "cover", width: "100%", height: "100%", maxHeight: "236.91px" }}
                           />
                           <div className="card-body">
                             <h5 className="card-title">{consultant.name}</h5>
@@ -221,23 +136,25 @@ export default function Home() {
               {categories.map((category, index) => {
                 return (
                   <div key={index} className="col">
-                    <div className="card mb-4">
-                      <Image
-                        className="card-img-top"
-                        src={category.imgUrl}
-                        width={200}
-                        height={300}
-                        alt={category.name}
-                        style={{ objectFit: "cover" }}
-                      />
-                      <div className="card-body">
-                        <h5 className="card-title">{category.name}</h5>
-                        <p className="card-text">{category.description}</p>
-                        <p className="card-text">
-                          <small className="text-muted">{category.numberOfConsultants} of consultants</small>
-                        </p>
+                    <Link href={`categories/${category.name}`} className="text-decoration-none">
+                      <div className="card mb-4">
+                        <Image
+                          className="card-img-top"
+                          src={category.imgUrl}
+                          width={200}
+                          height={300}
+                          alt={category.name}
+                          style={{ objectFit: "cover", width: "100%", height: "100%", maxHeight: "198.45px" }}
+                        />
+                        <div className="card-body">
+                          <h5 className="card-title">{category.name}</h5>
+                          <p className="card-text">{category.description}</p>
+                          <p className="card-text">
+                            <small className="text-muted">{category.numberOfConsultants} of consultants</small>
+                          </p>
+                        </div>
                       </div>
-                    </div>
+                    </Link>
                   </div>
                 )
               })
@@ -249,3 +166,104 @@ export default function Home() {
     </main>
   );
 }
+
+const consultants = [
+  {
+    id: 0,
+    name: "Amelia Thompson",
+    imgUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+    description: "Amelia excels at comprehending, designing, and overseeing software projects in various languages.",
+    export: "Software"
+  },
+  {
+    id: 1,
+    name: "Benjamin Smith",
+    imgUrl: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
+    description: "Benjamin is skilled in identifying cybersecurity risks and implementing protective measures.",
+    export: "Cybersecurity"
+  },
+  {
+    id: 2,
+    name: "Charlotte Davis",
+    imgUrl: "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=389&q=80",
+    description: "Charlotte adeptly deploys and manages cloud-based solutions using diverse platforms.",
+    export: "Cloud computing"
+  },
+  {
+    id: 3,
+    name: "Daniel Wilson",
+    imgUrl: "https://images.unsplash.com/photo-1531384441138-2736e62e0919?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
+    description: "Daniel expertly manages and secures vast data volumes with his database system and modeling knowledge.",
+    export: "Database"
+  },
+  {
+    id: 4,
+    name: "Elizabeth Anderson",
+    imgUrl: "https://images.unsplash.com/photo-1607990283143-e81e7a2c9349?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1682&q=80",
+    description: "Elizabeth excels at improving satisfaction with her superior communication and problem-solving skills.",
+    export: "Customers"
+  },
+]
+
+const categories = [
+  {
+    name: "Software",
+    description: "Design and maintenance of computer programs for specific tasks.",
+    numberOfConsultants: 76,
+    imgUrl: "https://images.unsplash.com/photo-1604403428907-673e7f4cd341?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=871&q=80"
+  },
+  {
+    name: "Cybersecurity",
+    description: "Protection of internet-connected systems from digital threats.",
+    numberOfConsultants: 33,
+    imgUrl: "https://images.unsplash.com/photo-1562408590-e32931084e23?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+  },
+  {
+    name: "Cloud computing",
+    description: "Delivery of internet-based services like storage, databases, and software.",
+    numberOfConsultants: 129,
+    imgUrl: "https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+  },
+  {
+    name: "Database",
+    description: "Management and organization of structured sets of data.",
+    numberOfConsultants: 143,
+    imgUrl: "https://images.unsplash.com/photo-1633412802994-5c058f151b66?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1160&q=80"
+  },
+  {
+    name: "Customers",
+    description: "Understanding and satisfying the needs of product or service users.",
+    numberOfConsultants: 97,
+    imgUrl: "https://images.unsplash.com/photo-1581093805071-a04e696db334?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+  },
+  {
+    name: "Automation",
+    description: "Use of systems to control industrial processes, reducing human intervention.",
+    numberOfConsultants: 45,
+    imgUrl: "https://images.unsplash.com/photo-1567789884554-0b844b597180?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+  },
+  {
+    name: "Artificial intelligence",
+    description: "Creation of machines that mimic human intelligence.",
+    numberOfConsultants: 122,
+    imgUrl: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=930&q=80"
+  },
+  {
+    name: "Computing",
+    description: "Study and application of algorithms, hardware, software, and networks.",
+    numberOfConsultants: 98,
+    imgUrl: "https://images.unsplash.com/photo-1617839625591-e5a789593135?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2680&q=80"
+  },
+  {
+    name: "Data visualization",
+    description: "Graphical representation of data to make it easily understandable.",
+    numberOfConsultants: 7,
+    imgUrl: "https://images.unsplash.com/photo-1584291527935-456e8e2dd734?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1450&q=80"
+  },
+  {
+    name: "Embedded systems",
+    description: "Design of dedicated computer systems for specific function",
+    numberOfConsultants: 149,
+    imgUrl: "https://images.unsplash.com/photo-1689535090070-647b1b194631?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
+  }
+]

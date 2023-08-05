@@ -1,10 +1,9 @@
 import Link from "next/link";
 import styles from "../Admin.module.css";
-import { getTestCandidateData } from "../../../api/fetchSample/testData";
+import { useCandidate } from "../../../components/useCandidate";
 
-export default async function CandidateDisplay() {
-  const data = await getTestCandidateData();
-  const { data: candidates } = await data.json();
+export default function CandidateDisplay() {
+  const candidates = useCandidate() || [];
 
   return (
     <tbody>

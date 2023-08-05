@@ -1,38 +1,21 @@
 import styles from "../Admin.module.css";
 import { Suspense } from "react";
-import ClientDisplay from "./ClientDisplay";
-import Link from "next/link";
-import AddClientWindow from "./AddClientWindow";
+import NotificationDisplay from "./NotificationDisplay";
+import CandidateDisplay from "./CandidateDisplay";
 
-export default async function AdminClients({ param }) {
-  // for switching admin action
-  const { searchParams } = param;
-
+export default function AdminMain() {
   return (
     <div className={styles.content}>
-      {searchParams.action === "add" || searchParams.action === "edit" ? (
-        <section>
-          <AddClientWindow param={param} />
-        </section>
-      ) : (
-        <></>
-      )}
-
       <section>
-        <h3>Clients / Consultants </h3>
-        <div className={styles.choices}>
-          <Link className={styles.btn} href="/admin/clients?action=add">
-            ADD
-          </Link>
-          <span> / </span>
-          <Link className={styles.btn} href="/admin/clients?action=edit">
-            EDIT
-          </Link>
-          <span> / </span>
-          <Link className={styles.btn} href="/admin/clients?action=delete">
-            DELETE
-          </Link>
+        <h3>Notification</h3>
+        <div className={styles.section}>
+          <Suspense fallback={<p>loading...</p>}>
+            <NotificationDisplay />
+          </Suspense>
         </div>
+      </section>
+      <section>
+        <h3>Pending Candidate</h3>
         <div className={styles.section}>
           <table className={styles.candidateTable}>
             <thead>
@@ -46,7 +29,7 @@ export default async function AdminClients({ param }) {
               </tr>
             </thead>
             <Suspense fallback={Loading()}>
-              <ClientDisplay searchParams={searchParams} />
+              <CandidateDisplay />
             </Suspense>
           </table>
         </div>

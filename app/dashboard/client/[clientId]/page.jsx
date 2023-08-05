@@ -7,13 +7,14 @@ import "./customCalendar.css"
 import { useState } from "react";
 
 export default function ClientDashboard({ params }) {
-  const [value, onChange] = useState(new Date());
   const { clientId } = params;
+  const [value, onChange] = useState(new Date());
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <div>
+          <h1>Hi! {user?.username}</h1>
           <h2>DASHBOARD</h2>
           <section className={styles.section}>
             <div>

@@ -1,12 +1,12 @@
 import { PrismaClient } from "@prisma/client";
 
 export async function GET(req, res) {
-  var token = extractToken(req);
-  if (validateToken(token) != true) return new Response(JSON.stringify({
-    data: {
-      message: "You are not logged in.",
-    },
-  }));
+  // var token = extractToken(req);
+  // if (validateToken(token) != true) return new Response(JSON.stringify({
+  //   data: {
+  //     message: "You are not logged in.",
+  //   },
+  // }));
 
   const prisma = new PrismaClient();
   const consultants = await prisma.consultants.findMany();

@@ -1,10 +1,15 @@
+"use client"
+
 import styles from "./Admin.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import AdminMain from "./components/AdminMain";
+import AdminMain from "./components/AdminMain"
 import AdminClients from "./components/AdminClients";
+import { useUser } from "../../components/useUser";
 
-export default async function Admin(param) {
+export default function Admin(param) {
+  const user = useUser();
+
   return (
     <main className={styles.wrapper}>
       <div className={styles.container}>
@@ -19,34 +24,19 @@ export default async function Admin(param) {
           <ul className={styles.menu}>
             <li>
               <Link className={styles.link} href="/admin">
-                <Image
-                  src="/home_icon.png"
-                  alt="Home icon"
-                  width={32}
-                  height={32}
-                />
+                <Image src="/home_icon.png" alt="Home icon" width={32} height={32} />
                 <span>Home</span>
               </Link>
             </li>
             <li>
               <Link className={styles.link} href="/admin/clients">
-                <Image
-                  src="/people_icon.png"
-                  alt="Home icon"
-                  width={32}
-                  height={32}
-                ></Image>
+                <Image src="/people_icon.png" alt="Home icon" width={32} height={32}></Image>
                 <span>Clients/Consultants</span>
               </Link>
             </li>
             <li>
               <Link className={styles.link} href="#">
-                <Image
-                  src="/sign_out_icon.png"
-                  alt="Home icon"
-                  width={32}
-                  height={26}
-                ></Image>
+                <Image src="/sign_out_icon.png" alt="Home icon" width={32} height={26}></Image>
                 <span>Sign Out</span>
               </Link>
             </li>
@@ -55,13 +45,13 @@ export default async function Admin(param) {
         </div>
         <div className={styles.dashboard}>
           <h1>DASHBOARD</h1>
-          {param.params === undefined ? (
-            <AdminMain />
-          ) : (
-            <AdminClients param={param} />
-          )}
+          {
+            param.params === undefined
+            ? <AdminMain />
+            : <AdminClients param={param}/>
+          }
         </div>
       </div>
     </main>
-  );
+  )
 }

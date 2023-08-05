@@ -1,10 +1,10 @@
 import Link from "next/link";
 import styles from "../Admin.module.css";
-import { getTestClientData } from "../../../api/fetchSample/testData";
+import { useClient } from "../../../components/useClient"
 
-export default async function ClientDisplay({ searchParams }) {
-  const data = await getTestClientData();
-  const { data: clients } = await data.json();
+export default function ClientDisplay({ searchParams }) {
+  const clients = useClient() || [];
+
 
   return (
     <tbody>
@@ -19,14 +19,14 @@ export default async function ClientDisplay({ searchParams }) {
               <td className={styles.tableCell}>{client.phone}</td>
               <td className={styles.tableCell}>
                 {searchParams.action === undefined ||
-                searchParams.action === "add" ? (
+                  searchParams.action === "add" ? (
                   <Link className={styles.detail} href="#">
                     Detail
                   </Link>
                 ) : searchParams.action === "edit" ? (
                   <Link
                     className={styles.btn}
-                    href={`/admin/client?action=edit&fName=${client.fName}&lName=${client.lName}&email=${client.email}&phone=${client.phone}`}
+                    href={`/admin/clients?action=edit&fName=${client.fName}&lName=${client.lName}&email=${client.email}&phone=${client.phone}`}
                   >
                     EDIT
                   </Link>

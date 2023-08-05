@@ -1,7 +1,7 @@
 /* Styling for the sign-in form container */
 .sign-in-container {
     max-width: 300px;
-    margin: 0 auto;
+    margin: 48px auto !important;
     margin-bottom: auto;
     padding: 20px;
     border: 1px solid #ccc;

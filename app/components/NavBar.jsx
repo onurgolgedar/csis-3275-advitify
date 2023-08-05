@@ -1,12 +1,11 @@
 "use client";
 
 import styles from "./NavBar.module.css";
-import { useContext } from "react";
 import { Abhaya_Libre } from "next/font/google";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation"
-import { UserContext } from "../components/UserContext"
+import { useUser } from "./useUser";
 
 const logoFont = Abhaya_Libre({
   subsets: ["latin"],
@@ -14,7 +13,7 @@ const logoFont = Abhaya_Libre({
 });
 
 export default function NavBar() {
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
   const router = useRouter();
   async function navigateTo() {
     if (user !== undefined) {

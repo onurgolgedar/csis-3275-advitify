@@ -3,13 +3,15 @@
 import styles from "../signIn/signIn.css";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useUser } from "../components/useUser";
 
-export default function signIn() {
+export default function SignIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(
     "Please use your username and password to login."
   );
+  const { user, setUser } = useUser();
 
   const router = useRouter();
 
@@ -22,6 +24,7 @@ export default function signIn() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${user.token}`
       },
     });
 
@@ -53,14 +56,12 @@ export default function signIn() {
       }),
     });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
+    console.log(response);
     const { data } = await response.json();
     console.log("Response Data:", data.user);
     if (data.user !== null) {
       console.log("Login successfull");
-      sessionStorage.setItem("user", JSON.stringify(data.user));
+      setUser(data);
       router.push("/");
       return;
     } else {
@@ -71,8 +72,6 @@ export default function signIn() {
 
   return (
     <main className={styles.main}>
-      {}
-
       <div className="sign-in-container">
         <h2>Sign In</h2>
         <form onSubmit={handleLogin}>

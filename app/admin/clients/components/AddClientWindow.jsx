@@ -61,11 +61,11 @@ export default function AddClientWindow({ param }) {
       </div>
       <div className={styles.field}>
         <div className={styles.field}>
-          <label className="label" htmlFor="fName">
+          <label className={styles.label} htmlFor="fName">
             First Name
           </label>
           <input
-            className="input"
+            className={styles.input}
             id="fName"
             type="text"
             value={input.fName}
