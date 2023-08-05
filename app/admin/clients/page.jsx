@@ -8,7 +8,7 @@ import AdminClients from "./components/AdminClients";
 import { useUser } from "../../components/useUser";
 
 export default function Admin(param) {
-  const user = useUser();
+
 
   return (
     <main className={styles.wrapper}>
@@ -47,8 +47,8 @@ export default function Admin(param) {
           <h1>DASHBOARD</h1>
           {
             param.params === undefined
-            ? <AdminMain />
-            : <AdminClients param={param}/>
+              ? <AdminMain />
+              : <AdminClients param={param} />
           }
         </div>
       </div>
