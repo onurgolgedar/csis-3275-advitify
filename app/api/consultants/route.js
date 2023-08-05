@@ -6,11 +6,18 @@ import {
 } from "../../../util/util.js";
 
 export async function GET(req, res) {
-  // var token = extractToken(req);
-  // if (!validateToken(token)) createResponse(false, "You are not logged in.");
-
   const prisma = new PrismaClient();
-  const consultants = await prisma.consultants.findMany();
+
+  try {
+    // var token = extractToken(req);
+    // if (!validateToken(token)) createResponse(false, "You are not logged in.");
+    const consultants = await prisma.consultants.findMany();
+  } catch (e) {
+    console.log("-> Request failed");
+    return createResponse(false, null, e);
+  } finally {
+    prisma.$disconnect();
+  }
 
   const response = createResponse(true, consultants);
   return response;

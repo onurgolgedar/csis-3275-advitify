@@ -1,32 +1,26 @@
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { PrismaClient } from "@prisma/client";
+import { createResponse } from "../../../util/util.js";
 
 export async function POST(req, res) {
-
+  const prisma = new PrismaClient();
 
   try {
-    const { username, email, password, userType } = await req.json();
-    
+    const { username, email, password } = await req.json();
 
-    // Create a new user in the 'Users' table using the Prisma client
     const newUser = await prisma.users.create({
       data: {
-        username:username,
-        email:email,
-        passwordHash:password,
-        userType:"2",
+        username: username,
+        email: email,
+        passwordHash: password,
+        userType: "2",
       },
     });
 
-    //res.status(201).json({ message: 'User registered successfully', user: newUser });
-    return new Response(JSON.stringify({data:newUser}));
-  } catch (error) {
-    console.error('Error registering user:', error);
-    console.log(error);
-    //res.status(500).json({ error: 'Internal server error' });
+    return createResponse(true, newUser, "User has been created successfully.");
+  } catch (e) {
+    console.log("-> Request failed");
+    return createResponse(false, null, e);
   } finally {
-    // Close the Prisma client connection
     prisma.$disconnect();
   }
 }

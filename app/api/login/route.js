@@ -1,47 +1,51 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { CreateResponse } from "../../../util/util.js";
+import { createResponse } from "../../../util/util.js";
 
 export async function POST(req, res) {
+  const prisma = new PrismaClient();
+
   try {
-    const body = await req.json();
-    const { username, password } = body;
+    const { username, password } = await req.json();
 
-    const prismaClient = new PrismaClient();
-
-    const userInfo = await login(prismaClient, username, password);
+    const userInfo = await login(prisma, username, password);
     if (userInfo) {
       console.log("-> Login successful");
       console.log("-> Token : " + userInfo);
 
       var token = generateToken(userInfo);
-      await storeTokenInDatabase(prismaClient, token, userInfo);
+      await storeTokenInDatabase(prisma, token, userInfo);
 
-      return CreateResponse(true, { token: token, userInfo: userInfo }, "You have logged in successfully.");
+      return createResponse(
+        true,
+        { token: token, userInfo: userInfo },
+        "You have logged in successfully."
+      );
     } else {
       console.log("-> Login failed");
-      return CreateResponse(false, null, "Given credentials were invalid.");
+      return createResponse(false, null, "Given credentials were invalid.");
     }
-  }
-  catch (e) {
+  } catch (e) {
     console.log("Error -> " + e);
-    return CreateResponse(false, null, e);
+    return createResponse(false, null, e);
+  } finally {
+    prisma.$disconnect();
   }
 }
 
-async function login(prismaClient, username, password) {
-    const user = await prismaClient.users.findFirst({
-      where: {
-        username: username,
-      },
-    });
-    if (!user) return null;
+async function login(prisma, username, password) {
+  const user = await prisma.users.findFirst({
+    where: {
+      username: username,
+    },
+  });
+  if (!user) return null;
 
-    const isValidPassword = await bcrypt.compare(password, user.passwordHash);
-    if (!isValidPassword) return null;
+  const isValidPassword = await bcrypt.compare(password, user.passwordHash);
+  if (!isValidPassword) return null;
 
-    return user;
+  return user;
 }
 
 function generateToken(user) {
@@ -57,8 +61,8 @@ function generateToken(user) {
   });
 }
 
-async function storeTokenInDatabase(prismaClient, token, user) {
-  const loginEntry = await prismaClient.login.create({
+async function storeTokenInDatabase(prisma, token, user) {
+  const loginEntry = await prisma.login.create({
     data: {
       token: token,
       expiryDate: new Date(Date.now() + 1000 * 60 * 60 * 24),
