@@ -2,29 +2,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { api_fetch } from "../util/util";
 
 const handleGetConsultants = async (user, setConsultants) => {
-  const response = await fetch("/api/consultants", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${user.data.token}`,
-    },
-  });
+  const result = await api_fetch("consultants", user);
 
-  if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-
-  const data = await response.json();
-  const consultants = [];
-  data.forEach((element) => {
-    consultants.push({
-      id: element.userID,
-      name: "Onur Golgedar",
-      imgUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
-      description: "ABC",
-      export: "Software",
-    });
-  });
+  console.log(result.data);
+  
+  const consultants = result.data;
   setConsultants(consultants);
 };
 
@@ -52,7 +37,10 @@ export default function Home() {
         defer
       ></script>
       <section id="hero" className="bg-body-tertiary pt-5">
-        <button type="submit" onClick={() => handleGetConsultants(user, setConsultants)}>
+        <button
+          type="submit"
+          onClick={() => handleGetConsultants(user, setConsultants)}
+        >
           Test GetConsultants
         </button>
         <div className="container bg-body-tertiary">
@@ -184,7 +172,7 @@ export default function Home() {
                           <p className="card-text">{consultant.description}</p>
                           <p className="card-text">
                             <small className="text-muted">
-                              Area: {consultant.export}
+                              Area: {consultant.expertise}
                             </small>
                           </p>
                         </div>
@@ -245,51 +233,51 @@ export default function Home() {
 }
 
 //consultants// = [
-  // {
-  //   id: 0,
-  //   name: "Amelia Thompson",
-  //   imgUrl:
-  //     "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
-  //   description:
-  //     "Amelia excels at comprehending, designing, and overseeing software projects in various languages.",
-  //   export: "Software",
-  // },
-  // {
-  //   id: 1,
-  //   name: "Benjamin Smith",
-  //   imgUrl:
-  //     "https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
-  //   description:
-  //     "Benjamin is skilled in identifying cybersecurity risks and implementing protective measures.",
-  //   export: "Cybersecurity",
-  // },
-  // {
-  //   id: 2,
-  //   name: "Charlotte Davis",
-  //   imgUrl:
-  //     "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=389&q=80",
-  //   description:
-  //     "Charlotte adeptly deploys and manages cloud-based solutions using diverse platforms.",
-  //   export: "Cloud computing",
-  // },
-  // {
-  //   id: 3,
-  //   name: "Daniel Wilson",
-  //   imgUrl:
-  //     "https://images.unsplash.com/photo-1531384441138-2736e62e0919?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
-  //   description:
-  //     "Daniel expertly manages and secures vast data volumes with his database system and modeling knowledge.",
-  //   export: "Database",
-  // },
-  // {
-  //   id: 4,
-  //   name: "Elizabeth Anderson",
-  //   imgUrl:
-  //     "https://images.unsplash.com/photo-1607990283143-e81e7a2c9349?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1682&q=80",
-  //   description:
-  //     "Elizabeth excels at improving satisfaction with her superior communication and problem-solving skills.",
-  //   export: "Customers",
-  // },
+// {
+//   id: 0,
+//   name: "Amelia Thompson",
+//   imgUrl:
+//     "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+//   description:
+//     "Amelia excels at comprehending, designing, and overseeing software projects in various languages.",
+//   export: "Software",
+// },
+// {
+//   id: 1,
+//   name: "Benjamin Smith",
+//   imgUrl:
+//     "https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
+//   description:
+//     "Benjamin is skilled in identifying cybersecurity risks and implementing protective measures.",
+//   export: "Cybersecurity",
+// },
+// {
+//   id: 2,
+//   name: "Charlotte Davis",
+//   imgUrl:
+//     "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=389&q=80",
+//   description:
+//     "Charlotte adeptly deploys and manages cloud-based solutions using diverse platforms.",
+//   export: "Cloud computing",
+// },
+// {
+//   id: 3,
+//   name: "Daniel Wilson",
+//   imgUrl:
+//     "https://images.unsplash.com/photo-1531384441138-2736e62e0919?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
+//   description:
+//     "Daniel expertly manages and secures vast data volumes with his database system and modeling knowledge.",
+//   export: "Database",
+// },
+// {
+//   id: 4,
+//   name: "Elizabeth Anderson",
+//   imgUrl:
+//     "https://images.unsplash.com/photo-1607990283143-e81e7a2c9349?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1682&q=80",
+//   description:
+//     "Elizabeth excels at improving satisfaction with her superior communication and problem-solving skills.",
+//   export: "Customers",
+// },
 //];
 
 const categories = [

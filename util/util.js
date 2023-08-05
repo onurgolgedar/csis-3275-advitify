@@ -39,9 +39,26 @@ export async function validateToken(token) {
   return true;
 }
 
-export async function CheckLogin(req) {
-    if (!validateToken(extractToken(req)))
-        return createResponse(false, "You are not logged in.");
-    else
-        return true;
+export async function api_fetch(endpoint, user = null, isLoginRequired = false) {
+  const response = await fetch("/api/" + endpoint, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${user?.data?.token}`,
+    },
+  });
+
+  if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+  if (isLoginRequired && user?.data?.token == null) {
+    window.alert("You need to login");
+  }
+
+  return await response.json();
+}
+
+export async function checkLogin(req) {
+  if (!validateToken(extractToken(req)))
+    return createResponse(false, "You are not logged in.");
+  else return true;
 }
