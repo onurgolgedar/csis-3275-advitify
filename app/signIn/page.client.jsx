@@ -32,12 +32,9 @@ export default function SignIn() {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const { message, data } = await response.json();
-    console.log("Response Data:", JSON.stringify(data)); // it should not be stringify
-    console.log("Response Message:", JSON.stringify(message)); // it should not be stringify
 
     if (response.headers.get("content-type")?.includes("application/json")) {
       const data = response;
-      console.log(data);
       setMessage(data.message);
     } else console.warn("The response was not in JSON format.");
   };
@@ -57,10 +54,9 @@ export default function SignIn() {
     });
 
     const data = await response.json();
-    console.log(data);
-    console.log("Response Data:", data);
+
     if (data !== null) {
-      console.log("Login successfull");
+      sessionStorage.setItem("user", JSON.stringify(data))
       setUser(data);
       router.push("/");
       return;

@@ -14,6 +14,7 @@ const logoFont = Abhaya_Libre({
 
 export default function NavBar() {
   const { user } = useUser();
+  if(!user) return;
   const router = useRouter();
   async function navigateTo() {
     if (user !== undefined) {

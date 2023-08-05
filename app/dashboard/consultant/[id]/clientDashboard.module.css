@@ -1,0 +1,83 @@
+.wrapper {
+  min-height: 50vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  margin: 48px 0;
+}
+
+.container {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.section {
+  background-color: #cbd5e1;
+  border-radius: 12px;
+  padding: 24px 48px;
+}
+
+.flex {
+  display: flex;
+  gap: 24px;
+}
+
+.flexCol {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.grow4 {
+  width: 40%;
+}
+
+.grow6 {
+  width: 60%;
+}
+
+/* notification ======================================================== */
+.notificationList {
+  list-style: none;
+}
+
+.notification {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 24px;
+}
+
+/* schedule ======================================================== */
+
+/* progress ======================================================== */
+.progressList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+  margin: 12px 0;
+}
+
+/* textbook ======================================================== */
+.textbookList {
+  display: flex;
+  list-style: none;
+  gap: 24px;
+  margin: 48px 0;
+  padding: 0 24px;
+  overflow-x: auto;
+}
+
+.textbook {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  background-color: #94a3b8;
+  padding: 12px 24px;
+  border-radius: 8px;
+}
