@@ -5,21 +5,21 @@ import jwt from "jsonwebtoken";
 
 
 export function useUser() {
-  const {user, setUser} = useContext(UserContext);
+  const user = useContext(UserContext);
 
-  if (user) {
-    const token = user.user?.data.token;
-    // const decoded = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET, function (err, decoded) {
-    //   if (err) {
-    //     console.log("Error -> ", err);
-    //   }
-    // })
+  // if (user) {
+  //   const token = user.user?.data.token;
+  //   // const decoded = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET, function (err, decoded) {
+  //   //   if (err) {
+  //   //     console.log("Error -> ", err);
+  //   //   }
+  //   // })
 
-    // if(decoded) return user;
-    // else return null;
-    if (token == null)
-      return {user: undefined, setUser: setUser};
-  }
+  //   // if(decoded) return user;
+  //   // else return null;
+  //   if (token == null)
+  //     return {user: undefined, setUser: setUser};
+  // }
 
-  return {user: undefined, setUser: setUser};
+  return user;
 }

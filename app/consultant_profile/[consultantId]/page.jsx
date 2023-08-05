@@ -31,7 +31,7 @@ export default function Consultant({ params }) {
   const [value, onChange] = useState(new Date());
   // const [selectedHour, setSelectedHour] = useState(null);
 
-
+  const timeTable = Array(14).fill(0);
 
   return (
     <div className={styles.wrapper}>
@@ -79,6 +79,15 @@ export default function Consultant({ params }) {
           <div className={`${styles.flex} ${styles.body}`}>
             <div className={styles.schedule}>
               schedule
+              <ul className={styles.days}>
+                {
+                  timeTable.map((el, index) => {
+                    return (
+                      <li key={index} className={styles.day}>{index+8}</li>
+                    )
+                  })
+                }
+              </ul>
             </div>
             <div className={styles.Calendar}>
               <Calendar onChange={onChange}></Calendar>

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { api_fetch } from "../util/util";
+import { useUser } from "./components/useUser"
 
 const handleGetConsultants = async (user, setConsultants) => {
   const result = await api_fetch("consultants", user);
@@ -11,12 +12,18 @@ const handleGetConsultants = async (user, setConsultants) => {
 };
 
 export default function Home() {
+  const { setUser: updateContext } = useUser();
   const [user, setUser] = useState({ user: null });
   const [consultants, setConsultants] = useState([]);
   useEffect(() => {
     const session = sessionStorage.getItem("user");
-    if (session) setUser(JSON.parse(session));
-    else setUser(null);
+    if (session) {
+      const userData = JSON.parse(session)
+      setUser(userData);
+      updateContext(userData);
+    } else {
+      setUser(null);
+    }
     handleGetConsultants(user, setConsultants);
   }, []);
 

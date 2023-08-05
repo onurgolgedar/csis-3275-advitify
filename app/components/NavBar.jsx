@@ -14,10 +14,11 @@ const logoFont = Abhaya_Libre({
 });
 
 export default function NavBar() {
+  const context = useUser();
   const [user, setUser] = useState({ user: null });
   useEffect(() => {
     const session = sessionStorage.getItem("user");
-    if (session) setUser(JSON.parse(session))
+    if (session) setUser(JSON.parse(session));
     else setUser(null);
   }, [])
 
@@ -40,7 +41,7 @@ export default function NavBar() {
         </div>
         <ul className={styles.links}>
           {
-            user
+            context.user
               ?
               <></>
               :

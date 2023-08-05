@@ -95,6 +95,14 @@
   width: 50%;
 }
 
+.days {
+  list-style: none;
+}
+
+.day {
+
+}
+
 .calendar {
   width: 50%;
 }
