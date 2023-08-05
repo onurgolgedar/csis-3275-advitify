@@ -12,9 +12,7 @@ export default function SignIn() {
     "Please use your username and password to login."
   );
   const { user, setUser } = useUser();
-
   const router = useRouter();
-
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -33,9 +31,8 @@ export default function SignIn() {
     const data = await response.json();
 
     if (data.success) {
-      sessionStorage.setItem("user", JSON.stringify(data))
+      sessionStorage.setItem("user", JSON.stringify(data));
       setUser(data);
-      router.push("/");
       return;
     } else {
       window.alert("Login failed");

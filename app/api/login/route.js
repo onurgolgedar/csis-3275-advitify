@@ -2,6 +2,8 @@ import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { createResponse } from "../../../util/util.js";
+import { Issuer } from "openid-client";
+import { NextResponse } from "next/server";
 
 export async function POST(req, res) {
   const prisma = new PrismaClient();
@@ -15,7 +17,32 @@ export async function POST(req, res) {
       console.log("-> Token : " + userInfo);
 
       var token = generateToken(userInfo);
+
       await storeTokenInDatabase(prisma, token, userInfo);
+
+      // Discover the OpenID Connect provider
+      const provider = await Issuer.discover("https://accounts.google.com/");
+
+      // Set up the client
+      const client = new provider.Client({
+        client_id:
+          "25585881383-3094f025u2180k36v1slrn7g8il0rn42.apps.googleusercontent.com",
+        client_secret: "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",
+        redirect_uris: ["http://localhost:3000/Callback"],
+        response_types: ["code"],
+      });
+
+      // Define the scope of the authentication
+      const scope = "openid profile email";
+
+      // Generate the authorization URL
+      const authorizationUrl = client.authorizationUrl({
+        scope,
+      });
+
+      // Redirect the user to the authorization URL
+      console.log(authorizationUrl);
+      
 
       return createResponse(
         true,
