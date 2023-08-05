@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation"
 import { useUser } from "./useUser";
+import { useEffect, useState } from "react";
 
 const logoFont = Abhaya_Libre({
   subsets: ["latin"],
@@ -13,13 +14,18 @@ const logoFont = Abhaya_Libre({
 });
 
 export default function NavBar() {
-  const user = JSON.parse(sessionStorage.getItem("user"));
-  console.log(user);
+  const [user, setUser] = useState({user: null});
+  useEffect(() => {
+    const session = sessionStorage.getItem("user");
+    if (session) setUser(JSON.parse(session))
+    else setUser(null);
+
+  }, [])
+
   const router = useRouter();
   async function navigateTo() {
     if (user !== undefined) {
-      console.log(user);
-      router.push(`/dashboard/${user?.data.userInfo.userType === "1" ? "client" : "consultant"}/${user?.data.userInfo.id}`)
+      router.push(`/dashboard/${user?.data.userInfo.userType === "2" ? "client" : "consultant"}/${user?.data.userInfo.id}`)
       return;
     }
   }
