@@ -11,5 +11,5 @@ export default function Default() {
   const user = JSON.parse(session);
 console.log(user.data.userInfo.userType);
   if (!user || user.data.userInfo.userType != 1) return router.push("/");
-  return <Admin />
+  return <Admin admin={user}/>
 }

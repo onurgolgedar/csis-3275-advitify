@@ -5,11 +5,14 @@ import Link from "next/link";
 import Image from "next/image";
 import AdminMain from "./components/AdminMain"
 import AdminClients from "./components/AdminClients";
-// import { useUser } from "../../components/useUser";
+import { useRouter } from "next/navigation";
 
 export default function Admin(param) {
+  const router = useRouter();
+  const session = sessionStorage.getItem("user")
+  const user = JSON.parse(session);
+  if (!user || user.data.userInfo.userType != 1) return router.push("/");
 
-  
 
   return (
     <main className={styles.wrapper}>
