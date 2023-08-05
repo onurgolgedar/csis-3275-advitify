@@ -12,7 +12,7 @@ export async function GET(req, res) {
           consultants: true,
         },
       })
-    ).filter((user) => user.consultants && user.consultants.length === 1);
+    ).filter((user) => user.consultants && user.consultants.length == 1);
 
     console.log(consultantsResult);
     const consultants = [];
