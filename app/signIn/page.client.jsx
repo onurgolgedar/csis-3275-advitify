@@ -33,6 +33,7 @@ export default function SignIn() {
     if (data.success) {
       sessionStorage.setItem("user", JSON.stringify(data));
       setUser(data);
+      router.push("/");
       return;
     } else {
       window.alert("Login failed");

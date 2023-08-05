@@ -17,9 +17,10 @@ const meetingObject = {
 
 export default function ZoomMeetingComponentView({ searchParams }) {
   const { zak } = searchParams;
-  const user = sessionStorage.getItem("user");
+
   useEffect(() => {
-    initZoomApp(zak, user);
+
+    initZoomApp(zak);
   }, [zak]);
 
   return (
@@ -29,7 +30,9 @@ export default function ZoomMeetingComponentView({ searchParams }) {
   );
 }
 
-async function initZoomApp(zak, user) {
+async function initZoomApp(zak) {
+  const user = sessionStorage.getItem("user");
+  console.log(user);
   // initialize client
   const { client, clientConf } = await initClient(zak, user);
 

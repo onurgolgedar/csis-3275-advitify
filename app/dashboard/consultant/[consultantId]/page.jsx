@@ -4,17 +4,28 @@ import Image from "next/image";
 import styles from "./clientDashboard.module.css";
 import Calendar from 'react-calendar';
 import "./customCalendar.css"
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function ClientDashboard({ params }) {
-  const { clientId } = params;
+  const [user, setUser] = useState();
+  const { clientId } = params; // for data fetch
+  const router = useRouter();
   const [value, onChange] = useState(new Date());
-
+  useEffect(() => {
+    const session = sessionStorage.getItem("user");
+    if (session) {
+      const userData = JSON.parse(session)
+      setUser(userData);
+    } else {
+      router.push("");
+    }
+  }, [])
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <div>
-          <h1>Hi! {user?.username}</h1>
+          <h1>Hi! {user?.data.userInfo?.username}</h1>
           <h2>DASHBOARD</h2>
           <section className={styles.section}>
             <div>

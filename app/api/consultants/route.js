@@ -5,9 +5,9 @@ export async function GET(req, res) {
   const prisma = new PrismaClient();
 
   try {
-    console.log("1 - " + req);
+    // console.log("1 - " + req);
     const loggedIn = await checkLogin(req);
-    console.log("2 - " + loggedIn);
+    // console.log("2 - " + loggedIn);
     if (loggedIn != true) return loggedIn;
 
     const consultantsResult = (
@@ -19,7 +19,7 @@ export async function GET(req, res) {
       })
     ).filter((user) => user.consultants && user.consultants.length == 1);
 
-    console.log(consultantsResult);
+    // console.log(consultantsResult);
     const consultants = [];
     consultantsResult.forEach((consultant) => {
       consultants.push({
@@ -34,7 +34,7 @@ export async function GET(req, res) {
       });
     });
 
-    console.log(consultants);
+    // console.log(consultants);
     return createResponse(true, consultants);
   } catch (e) {
     console.log("-> Request failed " + e);
