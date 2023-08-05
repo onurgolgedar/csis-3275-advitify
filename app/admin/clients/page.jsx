@@ -5,10 +5,11 @@ import Link from "next/link";
 import Image from "next/image";
 import AdminMain from "./components/AdminMain"
 import AdminClients from "./components/AdminClients";
-import { useUser } from "../../components/useUser";
+// import { useUser } from "../../components/useUser";
 
 export default function Admin(param) {
 
+  
 
   return (
     <main className={styles.wrapper}>
