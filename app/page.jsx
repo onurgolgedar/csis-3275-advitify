@@ -3,6 +3,31 @@ import Image from "next/image";
 import Link from "next/link";
 import { useUser } from "./components/useUser";
 
+const handleGetConsultants = async (e) => {
+  console.log(user.data.token);
+  e.preventDefault();
+
+  console.log("handleGetConsultants");
+  const response = await fetch("/api/consultants", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${user.data.token}`
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+  
+  if (response.headers.get("content-type")?.includes("application/json")) {
+    const data = response;
+    console.log(data);
+    setMessage(data.message);
+  } else console.warn("The response was not in JSON format.");
+};
+
+
 export default function Home() {
   const { user } = useUser();
   globalThis.test = "test";
@@ -21,6 +46,7 @@ export default function Home() {
         defer
       ></script>
       <section id="hero" className="bg-body-tertiary pt-5">
+      <button type="submit" onClick={handleGetConsultants}>Test GetConsultants</button>
         <div className="container bg-body-tertiary">
           <div className="row">
             <div className="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="fade-up" >

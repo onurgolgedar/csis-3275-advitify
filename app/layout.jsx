@@ -11,10 +11,11 @@ export const metadata = {
     default: "Home | Advitify",
     template: "%s | Advitify",
   },
-  description: "Advityfy",
+  description: "Advitify",
 };
 
 export default function RootLayout({ children }) {
+  
   return (
     <html lang="en">
       <body className={inter.className}>

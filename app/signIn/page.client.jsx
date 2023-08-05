@@ -15,29 +15,6 @@ export default function SignIn() {
   console.log(user);
   const router = useRouter();
 
-  const handleGetConsultants = async (e) => {
-    console.log(user.data.token);
-    e.preventDefault();
-
-    console.log("handleGetConsultants");
-    const response = await fetch("/api/consultants", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${user.data.token}`
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    const { message, data } = await response.json();
-
-    if (response.headers.get("content-type")?.includes("application/json")) {
-      const data = response;
-      setMessage(data.message);
-    } else console.warn("The response was not in JSON format.");
-  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -93,10 +70,6 @@ export default function SignIn() {
           </div>
           <button type="submit">Sign In</button>
         </form>
-
-        <button type="submit" onClick={handleGetConsultants}>Test GetConsultants</button>
-
-        {message && <div className="message">{message}</div>}
       </div>
     </main>
   );
