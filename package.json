@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cypress": "cypress open"
   },
   "dependencies": {
     "@prisma/client": "^5.0.0",
@@ -28,6 +29,7 @@
   "devDependencies": {
     "@types/node": "20.4.5",
     "@types/react": "18.2.17",
+    "cypress": "^12.17.3",
     "prisma": "^5.0.0"
   }
 }
