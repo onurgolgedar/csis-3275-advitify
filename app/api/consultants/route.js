@@ -24,7 +24,7 @@ export async function GET(req, res) {
           " " +
           consultant.profiles[0].lastName,
         imgUrl: consultant.profiles[0].profileImage,
-        description: consultant.profiles[0].contactInfo,
+        description: consultant.profiles[0].bio,
         expertise: "Software",
       });
     });

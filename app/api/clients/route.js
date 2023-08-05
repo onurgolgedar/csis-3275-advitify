@@ -21,7 +21,7 @@ export async function GET(req, res) {
         id: client.username,
         name: client.profiles[0].firstName + " " + client.profiles[0].lastName,
         imgUrl: client.profiles[0].profileImage,
-        description: client.profiles[0].contactInfo,
+        description: client.profiles[0].bio,
       });
     });
 
