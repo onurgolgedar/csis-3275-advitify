@@ -17,7 +17,8 @@ export default function NavBar() {
   const router = useRouter();
   async function navigateTo() {
     if (user !== undefined) {
-      router.push(`/dashboard/${user?.userType === "2" ? "client" : "consultant"}/${user?.id}`)
+      console.log(user);
+      router.push(`/dashboard/${user?.data.userInfo.userType === "1" ? "client" : "consultant"}/${user?.data.userInfo.id}`)
       return;
     }
   }
@@ -32,12 +33,22 @@ export default function NavBar() {
           </span>
         </div>
         <ul className={styles.links}>
-          <li className={styles.link}>
-            <Link href="/signIn">Sign in</Link>
-          </li>
-          <li className={styles.link}>
-            <Link href="/signUpMember">Sign up</Link>
-          </li>
+          {
+            user?.data.token
+              ?
+              <></>
+              :
+              <>
+                <li className={styles.link}>
+                  <Link href="/signIn">Sign in</Link>
+                </li>
+                <li className={styles.link}>
+                  <Link href="/signUpMember">Sign up</Link>
+                </li>
+              </>
+
+
+          }
           <li className={styles.link}>
             <button className={styles.btn} onClick={() => navigateTo()}>
               <Image

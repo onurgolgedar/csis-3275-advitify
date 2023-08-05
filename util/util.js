@@ -7,3 +7,4 @@ export function CreateResponse(success, data, message) {
         message: message
     }))
 }
+

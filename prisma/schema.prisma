@@ -23,29 +23,15 @@ model clients {
   reviews           reviews[]
 }
 
-// model idTokens {
-//   id        Int      @id @default(autoincrement())
-//   token     String?  @db.VarChar(255)
-//   tokenInfo String?  @db.VarChar(1024)
-//   login     login[]
-// }
-
-// model accessTokens {
-//   id        Int      @id @default(autoincrement())
-//   token     String?  @db.VarChar(255)
-//   tokenInfo String?  @db.VarChar(1024)
-//   login     login[]
-// }
-
 model login {
-  token        String        @id @db.VarChar(255)
-  expiryDate   DateTime?
-  userID       Int?
+  token        String        @id(map: "PK_login") @db.VarChar(255)
+  expiryDate   DateTime      @db.DateTime
+  userID       Int
   idToken      Int?
   accessToken  Int?
-  // idTokens     idTokens?     @relation(fields: [idToken], references: [id])
-  // accessTokens accessTokens? @relation(fields: [accessToken], references: [id])
-  // users        users?        @relation(fields: [userID], references: [id])
+  accessTokens accessTokens? @relation(fields: [accessToken], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_login_accessTokens")
+  idTokens     idTokens?     @relation(fields: [idToken], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_login_login")
+  users        users         @relation(fields: [userID], references: [id], onUpdate: NoAction, map: "FK_login_users")
 }
 
 model consultant_availability {
@@ -226,7 +212,31 @@ model users {
   updatedAt     DateTime?       @db.DateTime
   clients       clients[]
   consultants   consultants[]
+  login         login[]
   notifications notifications[]
   profiles      profiles[]
-  // login         login[]
+}
+
+model accessTokens {
+  id        Int     @id(map: "PK_accessTokens") @default(autoincrement())
+  token     String  @db.VarChar(255)
+  tokenInfo String  @db.VarChar(1024)
+  login     login[]
+}
+
+model idTokens {
+  id        Int     @id(map: "PK_idTokens") @default(autoincrement())
+  token     String  @db.VarChar(255)
+  tokenInfo String  @db.VarChar(1024)
+  login     login[]
+}
+
+model sysdiagrams {
+  name         String @db.NVarChar(128)
+  principal_id Int
+  diagram_id   Int    @id(map: "PK__sysdiagr__C2B05B61256D8B9C") @default(autoincrement())
+  version      Int?
+  definition   Bytes?
+
+  @@unique([principal_id, name], map: "UK_principal_name")
 }

@@ -1,23 +1,25 @@
 import { PrismaClient } from "@prisma/client";
 
 export async function GET(req, res) {
-  // var token = extractToken(req);
-  // if (validateToken(token) != true) return new Response(JSON.stringify({
-  //   data: {
-  //     message: "You are not logged in.",
-  //   },
-  // }));
+  var token = extractToken(req);
+  if (!validateToken(token)) return new Response(JSON.stringify({
+    data: {
+      message: "You are not logged in.",
+    },
+  }));
 
   const prisma = new PrismaClient();
   const consultants = await prisma.consultants.findMany();
   const response = new Response(JSON.stringify({ data: consultants }));
-
-  res.headers.set("content-type", "application/json");
+  console.group();
+  console.log('success');
+  console.groupEnd()
   return response;
 }
 
 function extractToken(req) {
-  const authHeader = req.headers.authorization;
+  const authHeader = req.headers.get("authorization");
+
   if (!authHeader) return null;
 
   const tokenParts = authHeader.split(" ");
@@ -27,6 +29,7 @@ function extractToken(req) {
 }
 
 async function validateToken(token) {
+
   const prisma = new PrismaClient();
   if (!token) return false;
 

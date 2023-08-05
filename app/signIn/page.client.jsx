@@ -12,19 +12,19 @@ export default function SignIn() {
     "Please use your username and password to login."
   );
   const { user, setUser } = useUser();
-console.log(user);
+  console.log(user);
   const router = useRouter();
 
   const handleGetConsultants = async (e) => {
+    console.log(user.data.token);
     e.preventDefault();
 
     console.log("handleGetConsultants");
-
     const response = await fetch("/api/consultants", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${user.token}`
+        "Authorization": `Bearer ${user.data.token}`
       },
     });
 
