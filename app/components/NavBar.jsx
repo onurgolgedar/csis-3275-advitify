@@ -29,6 +29,11 @@ export default function NavBar() {
       return;
     }
   }
+  function logout(){
+    sessionStorage.clear();
+    context.setUser(null);
+    window.alert("You logged out!");
+  }
   return (
     <header className={styles.wrapper}>
       <nav className={styles.container}>
@@ -43,7 +48,9 @@ export default function NavBar() {
           {
             context.user
               ?
-              <></>
+              <li className={styles.link} onClick={logout}>
+                  <Link href="/">Log out</Link>
+                </li>
               :
               <>
                 <li className={styles.link}>
